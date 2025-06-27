@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import { Star } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
+  const [activeTab, setActiveTab] = useState("Rent");
+  const tabs = ["Rent", "Buy", "Sell"];
+
   return (
     <section
       className="relative overflow-hidden mb-20 mx-4 sm:mx-6 lg:mx-12 xl:mx-16 mt-8 pt-24"
@@ -86,20 +90,38 @@ const Hero = () => {
               Find the best place
             </h3>
 
-            {/* Tabs moved to top right */}
-            <div className="flex bg-gray-100 rounded-full text-sm font-medium">
-              {["Rent", "Buy", "Sell"].map((tab, i) => (
+            {/* Tabs with sliding underline */}
+            <div className="relative flex justify-between bg-white rounded-xl px-4 py-2 w-[220px] shadow-sm">
+              {tabs.map((tab) => (
                 <button
-                  key={i}
-                  className={`px-6 py-2 rounded-full ${
-                    tab === "Rent"
-                      ? "bg-white text-[#4f6ff4] shadow-md"
-                      : "text-gray-600"
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`relative z-10 flex-1 py-1.5 text-sm font-medium transition-colors duration-300 ${
+                    activeTab === tab ? "text-[#4f6ff4]" : "text-black"
                   }`}
                 >
                   {tab}
                 </button>
               ))}
+
+              {/* Underline */}
+              <motion.div
+                animate={{
+                  x:
+                    tabs.indexOf(activeTab) *
+                    (220 / tabs.length - 32 / tabs.length),
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 40,
+                  mass: 0.8,
+                }}
+                className="absolute bottom-0.5 left-4 h-[2px] bg-[#4f6ff4] rounded-full"
+                style={{
+                  width: `${220 / tabs.length - 16}px`,
+                }}
+              />
             </div>
           </div>
 
