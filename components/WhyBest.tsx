@@ -27,24 +27,24 @@ const features = [
 
 export default function WhyBest() {
   return (
-    <section className="bg-[#f9faff] px-6 py-24">
-      {/* Main container with flex, width 1439px, padding 0px 80px */}
-      <div className="flex w-[1439px] px-20 justify-center items-center gap-[60px] mx-auto">
-        {/* LEFT CARD with specific dimensions and styling */}
-        <div className="flex h-[754px] p-[50px] flex-col items-start gap-[26px] flex-1 bg-white rounded-[12px] border border-[#F1F1F3] shadow-[6px_6px_25px_1px_rgba(0,0,0,0.26)]">
-          <h2 className="text-5xl leading-tight font-bold text-black">
+    <section className="bg-[#f9faff] px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+      {/* Main container with responsive layout */}
+      <div className="flex flex-col lg:flex-row w-full max-w-[1439px] lg:px-20 justify-center items-center gap-8 sm:gap-12 lg:gap-[60px] mx-auto">
+        {/* LEFT CARD with responsive dimensions */}
+        <div className="flex w-full lg:w-auto lg:h-[754px] p-6 sm:p-8 lg:p-[50px] flex-col items-start gap-4 sm:gap-6 lg:gap-[26px] lg:flex-1 bg-white rounded-[12px] border border-[#F1F1F3] shadow-[6px_6px_25px_1px_rgba(0,0,0,0.26)]">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl leading-tight font-bold text-black">
             Why We are the <br /> best in the market
           </h2>
-          <p className="text-[#4B4B4B] text-xl leading-relaxed">
+          <p className="text-[#4B4B4B] text-base sm:text-lg lg:text-xl leading-relaxed">
             Discover apartments and homes that match your lifestyle — with
             powerful filters, interactive
           </p>
 
-          <button className="bg-[#5271FF] text-white px-6 py-2.5 text-xl font-semibold hover:bg-[#3f5be0] transition rounded-[50px] border-[3px] border-[rgb(173,187,249)] shadow-[0px_-0.301px_0.241px_-1.167px_rgba(71,136,255,0.68)_inset,0px_-1.144px_0.915px_-2.333px_rgba(71,136,255,0.61)_inset,0px_-5px_4px_-3.5px_rgba(71,136,255,0.30)_inset,0px_0.602px_0.602px_-1.25px_rgba(0,0,0,0.18),0px_2.289px_2.289px_-2.5px_rgba(0,0,0,0.16),0px_10px_10px_-3.75px_rgba(0,0,0,0.06)]">
+          <button className="bg-[#5271FF] text-white px-4 sm:px-6 py-2 sm:py-2.5 text-base sm:text-lg lg:text-xl font-semibold hover:bg-[#3f5be0] transition rounded-[50px] border-[3px] border-[rgba(82,113,255,0.48)] shadow-[0px_-0.301px_0.241px_-1.167px_rgba(71,136,255,0.68)_inset,0px_-1.144px_0.915px_-2.333px_rgba(71,136,255,0.61)_inset,0px_-5px_4px_-3.5px_rgba(71,136,255,0.30)_inset,0px_0.602px_0.602px_-1.25px_rgba(0,0,0,0.18),0px_2.289px_2.289px_-2.5px_rgba(0,0,0,0.16),0px_10px_10px_-3.75px_rgba(0,0,0,0.06)]">
             Explore More
           </button>
 
-          <div className="overflow-hidden rounded-xl flex-1 w-full">
+          <div className="overflow-hidden rounded-xl flex-1 w-full min-h-[200px] sm:min-h-[300px] lg:min-h-0">
             <Image
               src="/assets/appartment1.png"
               alt="Apartment"
@@ -55,25 +55,28 @@ export default function WhyBest() {
           </div>
         </div>
 
-        {/* RIGHT FEATURES GRID */}
-        <div className="grid grid-cols-2 gap-0">
+        {/* RIGHT FEATURES GRID with responsive layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-0 w-full lg:w-auto">
           {features.map((item, index) => (
             <div
               key={index}
-              className="flex w-[305.767px] h-[260px] p-[15px_24px] flex-col items-start gap-4 flex-shrink-0"
+              className="flex w-full sm:w-auto lg:w-[305.767px] h-auto lg:h-[260px] p-4 sm:p-[15px_24px] flex-col items-start gap-3 sm:gap-4 flex-shrink-0"
             >
-              <div className="w-[54px] h-[54px] rounded-full bg-[#5271FF] flex items-center justify-center">
+              <div className="w-[48px] sm:w-[54px] h-[48px] sm:h-[54px] rounded-full bg-[#5271FF] flex items-center justify-center">
                 <Image
                   src={item.icon}
                   alt={item.title}
-                  width={31}
-                  height={31}
+                  width={28}
+                  height={28}
+                  className="sm:w-[31px] sm:h-[31px]"
                 />
               </div>
-              <h3 className="text-2xl font-semibold text-black leading-tight">
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-black leading-tight">
                 {item.title}
               </h3>
-              <p className="text-lg text-[#555] leading-[1.6]">{item.desc}</p>
+              <p className="text-sm sm:text-base lg:text-lg text-[#555] leading-[1.6]">
+                {item.desc}
+              </p>
             </div>
           ))}
         </div>
