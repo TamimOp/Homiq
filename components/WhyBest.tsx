@@ -31,7 +31,7 @@ export default function WhyBest() {
       {/* Main container with flex, width 1439px, padding 0px 80px */}
       <div className="flex w-[1439px] px-20 justify-center items-center gap-[60px] mx-auto">
         {/* LEFT CARD with specific dimensions and styling */}
-        <div className="flex h-[754px] p-[50px] flex-col items-start gap-[26px] flex-1 bg-white rounded-[20px] shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+        <div className="flex h-[754px] p-[50px] flex-col items-start gap-[26px] flex-1 bg-white rounded-[12px] border border-[#F1F1F3] shadow-[6px_6px_25px_1px_rgba(0,0,0,0.26)]">
           <h2 className="text-5xl leading-tight font-bold text-black">
             Why We are the <br /> best in the market
           </h2>
