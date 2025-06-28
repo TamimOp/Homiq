@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full px-4 sm:px-6 py-3 bg-[#f7f8ff] flex justify-center">
+    <nav className="w-full px-4 sm:px-6 py-3 pt-6 flex justify-center">
       <div className="w-full max-w-[1240px] min-h-[70px] bg-white rounded-full flex flex-col lg:flex-row lg:items-center px-4 sm:px-6 shadow-sm relative">
         {/* Mobile layout */}
         <div className="flex items-center justify-between h-[70px] w-full lg:hidden">
@@ -69,7 +69,7 @@ const Navbar = () => {
           </Link>
 
           {/* Center - Nav Links */}
-          <div className="flex items-center gap-6 xl:gap-8 text-[14px] xl:text-[16px]">
+          <div className="flex items-center gap-6 xl:gap-8 text-[14px] xl:text-xl">
             <Link
               href="/"
               className="text-[#4f6ff4] font-medium hover:text-[#3d5ac2] transition"
@@ -100,13 +100,13 @@ const Navbar = () => {
           <div className="flex items-center gap-3 xl:gap-4">
             <Link
               href="/login"
-              className="text-black hover:text-[#4f6ff4] transition text-[14px] xl:text-[16px]"
+              className="text-black hover:text-[#4f6ff4] transition text-xl xl:text-[16px]"
             >
               Login
             </Link>
             <Link
               href="/get-started"
-              className="px-4 xl:px-6 py-2 border-2 border-[#4f6ff4] rounded-full text-[#4f6ff4] font-semibold hover:bg-[#4f6ff4] hover:text-white transition text-[14px] xl:text-[16px] whitespace-nowrap"
+              className="px-4 xl:px-6 py-2 border-2 border-[#4f6ff4] rounded-full text-[#4f6ff4] font-semibold hover:bg-[#4f6ff4] hover:text-white transition text-[14px] xl:text-xl whitespace-nowrap"
             >
               Get Started
             </Link>
