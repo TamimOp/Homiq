@@ -27,7 +27,7 @@ const features = [
 
 export default function WhyBest() {
   return (
-    <section className="bg-[#f9faff] px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+    <section className="px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
       {/* Main container with responsive layout */}
       <div className="flex flex-col lg:flex-row w-full max-w-[1439px] lg:px-20 justify-center items-center gap-8 sm:gap-12 lg:gap-[60px] mx-auto">
         {/* LEFT CARD with responsive dimensions */}
