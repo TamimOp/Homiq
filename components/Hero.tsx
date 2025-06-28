@@ -91,37 +91,39 @@ const Hero = () => {
             </h3>
 
             {/* Tabs with sliding underline */}
-            <div className="relative flex justify-between bg-white rounded-xl px-4 py-2 w-[220px] shadow-sm">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`relative z-10 flex-1 py-1.5 text-sm font-medium transition-colors duration-300 ${
-                    activeTab === tab ? "text-[#4f6ff4]" : "text-black"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
+            <div className="relative flex bg-white rounded-xl px-4 py-2 w-full max-w-[220px] shadow-sm">
+              <div className="relative flex-1 flex">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`relative z-10 flex-1 py-1.5 text-sm font-medium transition-colors duration-300 ${
+                      activeTab === tab ? "text-[#4f6ff4]" : "text-black"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
 
-              {/* Underline */}
-              <motion.div
-                animate={{
-                  x:
-                    tabs.indexOf(activeTab) *
-                    (220 / tabs.length - 32 / tabs.length),
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 40,
-                  mass: 0.8,
-                }}
-                className="absolute bottom-0.5 left-4 h-[2px] bg-[#4f6ff4] rounded-full"
-                style={{
-                  width: `${220 / tabs.length - 16}px`,
-                }}
-              />
+                {/* Underline */}
+                <motion.div
+                  animate={{
+                    left: `calc(${
+                      (tabs.indexOf(activeTab) / tabs.length) * 100
+                    }% + 8px)`,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 40,
+                    mass: 0.8,
+                  }}
+                  className="absolute bottom-0.5 h-[2px] bg-[#4f6ff4] rounded-full"
+                  style={{
+                    width: `calc(${100 / tabs.length}% - 16px)`,
+                  }}
+                />
+              </div>
             </div>
           </div>
 
