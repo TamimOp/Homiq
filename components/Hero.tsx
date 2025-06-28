@@ -213,7 +213,14 @@ const Hero = () => {
               </div>
             </div>
 
-            <button className="px-6 py-3 bg-[#4f6ff4] text-white font-semibold rounded-lg hover:bg-[#3c58d1] transition text-sm w-full lg:w-auto">
+            <button
+              className="px-6 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm w-full lg:w-auto"
+              style={{
+                background:
+                  "linear-gradient(90deg, #5271FF 0.29%, #4C68EB 54.62%, #314499 100.29%)",
+                border: "3px solid #5271FF7A",
+              }}
+            >
               Browse Properties
             </button>
           </div>
