@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { BedDouble, Bath, Home } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
 
@@ -115,11 +114,41 @@ export default function Project() {
                 <p className="text-base mt-1">{proj.desc}</p>
                 <div className="flex text-sm gap-1 flex-wrap mt-2">
                   <Tag
-                    icon={<BedDouble className="w-4 h-4" />}
+                    icon={
+                      <Image
+                        src="/assets/bed.svg"
+                        alt="bed"
+                        width={16}
+                        height={16}
+                        className="inline-block"
+                      />
+                    }
                     label="2-Bedroom"
                   />
-                  <Tag icon={<Bath className="w-4 h-4" />} label="2-Bathroom" />
-                  <Tag icon={<Home className="w-4 h-4" />} label="Villa" />
+                  <Tag
+                    icon={
+                      <Image
+                        src="/assets/bath.svg"
+                        alt="bath"
+                        width={16}
+                        height={16}
+                        className="inline-block"
+                      />
+                    }
+                    label="2-Bathroom"
+                  />
+                  <Tag
+                    icon={
+                      <Image
+                        src="/assets/villa.svg"
+                        alt="villa"
+                        width={16}
+                        height={16}
+                        className="inline-block"
+                      />
+                    }
+                    label="Villa"
+                  />
                 </div>
                 <div className="mt-2 font-normal">
                   <div className="text-white/70 text-sm">Price</div>
