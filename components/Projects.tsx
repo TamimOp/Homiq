@@ -90,7 +90,7 @@ export default function Project() {
                   }}
                 >
                   {/* Arrow SVG at top right of card (only for active & featured) */}
-                  {isActive && proj.featured && (
+                  {isActive && (
                     <div className="absolute top-8 right-10 z-30">
                       <Image
                         src="/assets/arrow-up-right.svg"
@@ -116,7 +116,7 @@ export default function Project() {
                   <div
                     className={clsx(
                       "absolute bottom-5 left-5 rounded-lg text-white shadow-lg",
-                      isActive && proj.featured ? "bg-[#5177FF]" : "bg-black/60"
+                      isActive ? "bg-[#5177FF]" : "bg-black/60"
                     )}
                     style={{
                       fontSize: 12,
