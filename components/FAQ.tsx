@@ -37,11 +37,11 @@ export default function FAQ() {
 
   return (
     <section className="px-6 py-20 max-w-[1200px] mx-auto">
-      <div className="flex flex-col md:flex-row justify-between gap-10 mb-10">
-        <h2 className="text-4xl font-bold leading-snug text-black">
+      <div className="flex flex-col md:flex-row justify-between gap-10 mb-10 md:items-center">
+        <h2 className="text-5xl font-bold leading-snug text-black">
           Frequently Asked <br /> Questions
         </h2>
-        <p className="text-gray-500 max-w-md text-[15.5px]">
+        <p className="text-gray-500 max-w-md text-base md:self-center">
           Find answers to common questions about Estatein&apos;s services,
           property listings, and the real estate process. We&apos;re here to
           provide clarity and assist you every step of the way.
@@ -58,7 +58,7 @@ export default function FAQ() {
           >
             <button
               onClick={() => toggle(index)}
-              className="flex items-center justify-between w-full text-left px-6 py-5 text-[17px] font-medium text-black"
+              className="flex items-center justify-between w-full text-left px-6 py-5 text-[17px] font-medium text-black text-2xl"
             >
               {item.question}
               {activeIndex === index ? (
@@ -70,7 +70,7 @@ export default function FAQ() {
 
             {activeIndex === index && item.answer && (
               <div className="px-6 flex flex-col sm:flex-row justify-between gap-4 items-start">
-                <p className="text-sm text-gray-700 max-w-2xl leading-relaxed">
+                <p className="text-base text-gray-700 max-w-2xl leading-relaxed">
                   {item.answer}
                 </p>
                 {item.image && (
