@@ -1,4 +1,5 @@
 import Approach from "@/components/Approach";
+import FAQ from "@/components/FAQ";
 import Hero from "@/components/Hero";
 import Location from "@/components/Location";
 import Project from "@/components/Projects";
@@ -12,6 +13,7 @@ export default function Home() {
       <WhyBest />
       <Location />
       <Project />
+      <FAQ />
     </main>
   );
 }

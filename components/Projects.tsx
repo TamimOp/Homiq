@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 
@@ -31,8 +31,24 @@ const projects = [
 
 export default function Project() {
   const [activeIndex, setActiveIndex] = useState(1);
+  const [cardWidth, setCardWidth] = useState(732);
 
-  const CARD_WIDTH = 732;
+  // Responsive card width
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 768) {
+        setCardWidth(window.innerWidth - 32); // 16px padding on each side
+      } else if (window.innerWidth < 1024) {
+        setCardWidth(400);
+      } else {
+        setCardWidth(732);
+      }
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const total = projects.length;
   const getIndex = (i: number) => (i + total) % total;
   const visibleCards = [
@@ -49,7 +65,7 @@ export default function Project() {
         alt="bg"
         fill
         className="absolute left-0 top-0 h-full w-auto object-left object-contain pointer-events-none"
-        style={{ minWidth: 600, maxWidth: 900 }}
+        style={{ minWidth: 300, maxWidth: 900 }}
       />
 
       <div className="relative z-10 text-center mb-14 px-4">
@@ -61,11 +77,16 @@ export default function Project() {
       </div>
 
       {/* Card Container with Framer Motion */}
-      <div className="relative z-10 w-full flex justify-center">
+      <div className="relative z-10 w-full flex justify-center overflow-x-auto md:overflow-visible px-2">
         <motion.div
           className="flex gap-5"
           animate={{ x: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          style={{
+            minWidth: cardWidth * 1.5,
+            width: "100%",
+            justifyContent: "center",
+          }}
         >
           {visibleCards.map((proj, idx) => {
             const isActive = idx === 1;
@@ -76,7 +97,12 @@ export default function Project() {
                   "relative rounded-2xl overflow-hidden will-change-transform shadow-lg flex-shrink-0 transition-all duration-300",
                   isActive ? "scale-[1.02] shadow-2xl z-20" : "opacity-90"
                 )}
-                style={{ width: CARD_WIDTH, height: 479 }}
+                style={{
+                  width: cardWidth,
+                  height: cardWidth > 480 ? 479 : Math.round(cardWidth * 0.65),
+                  minWidth: 260,
+                  maxWidth: 732,
+                }}
               >
                 <div
                   className={clsx(
@@ -121,11 +147,15 @@ export default function Project() {
                     style={{
                       fontSize: 12,
                       display: "flex",
-                      width: "413.333px",
+                      width: cardWidth > 480 ? "413.333px" : "100%",
+                      maxWidth: cardWidth > 480 ? "90%" : "100%",
+                      left: cardWidth > 480 ? 20 : 0,
+                      right: cardWidth > 480 ? "auto" : 0,
                       padding: "10px 24px",
                       flexDirection: "column",
                       alignItems: "flex-start",
                       gap: "12px",
+                      boxSizing: "border-box",
                     }}
                   >
                     <h3 className="font-medium text-xl">{proj.title}</h3>
