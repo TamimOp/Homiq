@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
 const projects = [
   {
@@ -31,6 +32,15 @@ const projects = [
 export default function Project() {
   const [activeIndex, setActiveIndex] = useState(1);
 
+  const CARD_WIDTH = 732;
+  const total = projects.length;
+  const getIndex = (i: number) => (i + total) % total;
+  const visibleCards = [
+    projects[getIndex(activeIndex - 1)],
+    projects[getIndex(activeIndex)],
+    projects[getIndex(activeIndex + 1)],
+  ];
+
   return (
     <section className="relative w-full bg-[#F5F7FF] py-24 overflow-hidden">
       {/* Background Ellipse */}
@@ -50,132 +60,144 @@ export default function Project() {
         </p>
       </div>
 
-      {/* Card Container */}
-      <div
-        className="relative z-10 flex justify-center gap-5 px-0 flex-wrap md:flex-nowrap overflow-x-auto overflow-y-hidden scrollbar-none"
-        style={{ WebkitOverflowScrolling: "touch" }}
-      >
-        {projects.map((proj, idx) => (
-          <div
-            key={idx}
-            className="relative rounded-2xl overflow-hidden will-change-transform shadow-lg flex-shrink-0 transition-all duration-300"
-            style={{ width: 732, height: 479 }}
-          >
-            <div
-              onClick={() => setActiveIndex(idx)}
-              className={clsx(
-                "w-full h-full transition-transform duration-300",
-                activeIndex === idx
-                  ? "scale-[1.05] shadow-2xl z-20"
-                  : "opacity-90"
-              )}
-              style={{ position: "relative", width: "100%", height: "100%" }}
-            >
-              {/* Arrow SVG at top right of card */}
-              {proj.featured && (
-                <div className="absolute top-8 right-10 z-30">
-                  <Image
-                    src="/assets/arrow-up-right.svg"
-                    alt="arrow"
-                    width={40}
-                    height={40}
-                    className="w-10 h-10"
-                  />
-                </div>
-              )}
-
-              <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                <Image
-                  src={proj.image}
-                  alt={proj.title}
-                  fill
-                  className="object-cover"
-                  priority={idx === 0}
-                />
-              </div>
-
-              {/* Overlay content */}
+      {/* Card Container with Framer Motion */}
+      <div className="relative z-10 w-full flex justify-center">
+        <motion.div
+          className="flex gap-5"
+          animate={{ x: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
+          {visibleCards.map((proj, idx) => {
+            const isActive = idx === 1;
+            return (
               <div
+                key={getIndex(activeIndex - 1 + idx)}
                 className={clsx(
-                  "absolute bottom-5 left-5 rounded-lg text-white shadow-lg",
-                  proj.featured ? "bg-[#5177FF]" : "bg-black/60"
+                  "relative rounded-2xl overflow-hidden will-change-transform shadow-lg flex-shrink-0 transition-all duration-300",
+                  isActive ? "scale-[1.02] shadow-2xl z-20" : "opacity-90"
                 )}
-                style={{
-                  fontSize: 12,
-                  display: "flex",
-                  width: "413.333px",
-                  padding: "10px 24px",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  gap: "12px",
-                }}
+                style={{ width: CARD_WIDTH, height: 479 }}
               >
-                <h3 className="font-medium text-xl">{proj.title}</h3>
-                <p className="text-base mt-1">{proj.desc}</p>
-                <div className="flex text-sm gap-1 flex-wrap mt-2">
-                  <Tag
-                    icon={
+                <div
+                  className={clsx(
+                    "w-full h-full transition-transform duration-300",
+                    isActive ? "scale-[1.02] shadow-2xl z-20" : "opacity-90"
+                  )}
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  {/* Arrow SVG at top right of card (only for active & featured) */}
+                  {isActive && proj.featured && (
+                    <div className="absolute top-8 right-10 z-30">
                       <Image
-                        src="/assets/bed.svg"
-                        alt="bed"
-                        width={16}
-                        height={16}
-                        className="inline-block"
+                        src="/assets/arrow-up-right.svg"
+                        alt="arrow"
+                        width={40}
+                        height={40}
+                        className="w-10 h-10"
                       />
-                    }
-                    label="2-Bedroom"
-                  />
-                  <Tag
-                    icon={
-                      <Image
-                        src="/assets/bath.svg"
-                        alt="bath"
-                        width={16}
-                        height={16}
-                        className="inline-block"
+                    </div>
+                  )}
+
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                    <Image
+                      src={proj.image}
+                      alt={proj.title}
+                      fill
+                      className="object-cover"
+                      priority={isActive}
+                    />
+                  </div>
+
+                  {/* Overlay content */}
+                  <div
+                    className={clsx(
+                      "absolute bottom-5 left-5 rounded-lg text-white shadow-lg",
+                      isActive && proj.featured ? "bg-[#5177FF]" : "bg-black/60"
+                    )}
+                    style={{
+                      fontSize: 12,
+                      display: "flex",
+                      width: "413.333px",
+                      padding: "10px 24px",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      gap: "12px",
+                    }}
+                  >
+                    <h3 className="font-medium text-xl">{proj.title}</h3>
+                    <p className="text-base mt-1">{proj.desc}</p>
+                    <div className="flex text-sm gap-1 flex-wrap mt-2">
+                      <Tag
+                        icon={
+                          <Image
+                            src="/assets/bed.svg"
+                            alt="bed"
+                            width={16}
+                            height={16}
+                            className="inline-block"
+                          />
+                        }
+                        label="2-Bedroom"
                       />
-                    }
-                    label="2-Bathroom"
-                  />
-                  <Tag
-                    icon={
-                      <Image
-                        src="/assets/villa.svg"
-                        alt="villa"
-                        width={16}
-                        height={16}
-                        className="inline-block"
+                      <Tag
+                        icon={
+                          <Image
+                            src="/assets/bath.svg"
+                            alt="bath"
+                            width={16}
+                            height={16}
+                            className="inline-block"
+                          />
+                        }
+                        label="2-Bathroom"
                       />
-                    }
-                    label="Villa"
-                  />
-                </div>
-                <div className="mt-2 font-normal">
-                  <div className="text-white/70 text-sm">Price</div>
-                  <div className="text-xl">{proj.price}</div>
+                      <Tag
+                        icon={
+                          <Image
+                            src="/assets/villa.svg"
+                            alt="villa"
+                            width={16}
+                            height={16}
+                            className="inline-block"
+                          />
+                        }
+                        label="Villa"
+                      />
+                    </div>
+                    <div className="mt-2 font-normal">
+                      <div className="text-white/70 text-sm">Price</div>
+                      <div className="text-xl">{proj.price}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
+            );
+          })}
+        </motion.div>
       </div>
 
       {/* Pagination */}
       <div className="relative z-10 mt-10 flex justify-center gap-2">
         {projects.map((_, i) => (
-          <div
+          <button
             key={i}
+            onClick={() => setActiveIndex(i)}
             className={clsx(
               "w-3 h-3 rounded-full transition-all duration-300",
               i === activeIndex ? "bg-[#5177FF]" : "bg-gray-300"
             )}
+            aria-label={`Go to slide ${i + 1}`}
           />
         ))}
       </div>
 
       {/* CTA Button */}
       <div className="relative z-10 mt-10 text-center">
-        <button className="bg-[#5177FF] hover:bg-[#3f5ed6] text-white px-6 py-3 rounded-full text-sm font-medium shadow-md transition-all duration-300">
+        <button className="bg-[#5271FF] hover:bg-[#3f5ed6] text-white px-6 py-3 rounded-full text-sm font-medium shadow-md transition-all duration-300">
           Browse More Properties
         </button>
       </div>
