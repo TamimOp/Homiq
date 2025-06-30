@@ -1,4 +1,5 @@
 import Approach from "@/components/Approach";
+import Explore from "@/components/Explore";
 import FAQ from "@/components/FAQ";
 import Hero from "@/components/Hero";
 import Location from "@/components/Location";
@@ -16,6 +17,7 @@ export default function Home() {
       <Project />
       <FAQ />
       <Review />
+      <Explore />
     </main>
   );
 }
