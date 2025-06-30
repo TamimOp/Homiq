@@ -49,12 +49,12 @@ export default function Review() {
   const current = reviews[index];
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
+    <section className="w-full px-20 py-18 bg-white">
       <div className="flex justify-between items-center mb-10">
-        <h2 className="text-4xl font-bold max-w-xl">
+        <h2 className="text-5xl font-bold max-w-xl">
           What Our Clients Say <br /> about us
         </h2>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           {[
             "/assets/dp1.jpg",
             "/assets/dp2.jpg",
@@ -77,7 +77,7 @@ export default function Review() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-6">
+      <div className="flex items-center justify-between pt-22 gap-6">
         <button
           onClick={prev}
           className="w-10 h-10 flex items-center justify-center bg-[#5271FF] text-white rounded-full"
@@ -85,22 +85,39 @@ export default function Review() {
           <ArrowLeft size={20} />
         </button>
 
-        <div className="flex flex-wrap md:flex-nowrap items-center justify-center w-full gap-6">
-          <Image
-            src={current.image}
-            alt={current.name}
-            width={280}
-            height={280}
-            className="rounded-2xl object-cover"
-          />
-          <div className="bg-[#f4f6ff] rounded-2xl p-6 md:p-10 max-w-2xl">
-            <p className="text-lg md:text-xl font-medium leading-relaxed text-gray-800 mb-6">
+        {/* Main content split into left (image) and right (review) */}
+        <div className="flex flex-1 flex-row items-center justify-center gap-16">
+          {/* Left: Image */}
+          <div className="flex-shrink-0">
+            <Image
+              src={current.image}
+              alt={current.name}
+              width={345}
+              height={345}
+              className="rounded-2xl object-cover"
+            />
+          </div>
+          {/* Right: Review Content */}
+          <div
+            className="flex flex-col items-start rounded-2xl"
+            style={{
+              width: 673,
+              height: 406,
+              padding: "36px 38px",
+              gap: 27,
+              borderRadius: 16,
+              background: "#F5F7FF",
+            }}
+          >
+            <p className="text-2xl md:text-[32px] font-medium leading-relaxed text-[#242424] mb-6">
               {current.review}
             </p>
-            <p className="text-lg font-semibold text-black mb-1">
+            <p className="text-2xl font-semibold text-black mb-1">
               {current.name}
             </p>
-            <p className="text-sm text-[#5271FF] font-medium">{current.role}</p>
+            <p className="text-base text-[#5271FF] font-medium">
+              {current.role}
+            </p>
           </div>
         </div>
 
