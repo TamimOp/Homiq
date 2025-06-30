@@ -27,23 +27,23 @@ export default function Explore() {
       />
 
       <div className="relative z-10 text-center max-w-3xl">
-        <h2 className="text-white text-[32px] md:text-[40px] font-semibold leading-tight md:leading-snug">
+        <h2 className="text-white text-[32px] md:text-5xl font-semibold leading-tight md:leading-snug">
           Explore the local area
         </h2>
-        <p className="text-white text-base md:text-lg font-normal mt-2">
+        <p className="text-white text-base md:text-xl font-normal mt-2">
           Discover apartments and homes that match your lifestyle{" "}
           <br className="hidden md:block" />— with powerful filters, interactive
         </p>
 
         {/* Search Input */}
         <div className="mt-8 mx-auto w-full max-w-xl bg-white rounded-full flex items-center overflow-hidden px-6 py-3 shadow-md">
-          <Search className="text-gray-400 w-5 h-5" />
+          <Search className="text-gray-400 w-[34px] h-[34px]" />
           <input
             type="text"
             placeholder="Search Location"
-            className="flex-1 px-3 text-gray-700 placeholder:text-gray-400 outline-none border-none bg-transparent text-base"
+            className="flex-1 px-3 text-gray-700 placeholder:text-gray-400 outline-none border-none bg-transparent text-xl"
           />
-          <button className="bg-[#4F46E5] text-white font-medium text-base px-6 py-2 rounded-full">
+          <button className="bg-[#4F46E5] text-white font-medium text-xl px-6 py-2 rounded-full">
             Search
           </button>
         </div>
