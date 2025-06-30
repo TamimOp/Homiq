@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion, Variants } from "framer-motion";
 
 type FooterLink = {
   href: string;
@@ -13,6 +14,15 @@ type FooterColumn = {
   title: string;
   links: FooterLink[];
   isLastColumn?: boolean;
+};
+
+const columnVariants: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.15, duration: 0.6, ease: "easeInOut" },
+  }),
 };
 
 const Footer = () => {
@@ -89,15 +99,19 @@ const Footer = () => {
 
         {/* Right Section - All Columns */}
         <div className="lg:w-2/3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
-          {footerColumns.map((column) => (
-            <div
+          {footerColumns.map((column, i) => (
+            <motion.div
               key={column.title}
               className={`flex flex-col gap-4 ${
                 column.isLastColumn ? "lg:justify-self-end" : ""
               }`}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={columnVariants}
             >
               <h4 className="font-semibold mb-3 text-base">{column.title}</h4>
-
               {column.links.map((link, linkIndex) => (
                 <Link
                   key={linkIndex}
@@ -109,7 +123,7 @@ const Footer = () => {
                   {link.label}
                 </Link>
               ))}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

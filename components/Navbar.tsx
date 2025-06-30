@@ -1,10 +1,32 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        controls.start({
+          scale: 0.97,
+          boxShadow: "0 4px 24px rgba(79,111,244,0.10)",
+          transition: { duration: 0.3 },
+        });
+      } else {
+        controls.start({
+          scale: 1,
+          boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+          transition: { duration: 0.3 },
+        });
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [controls]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -12,7 +34,12 @@ const Navbar = () => {
 
   return (
     <nav className="w-full px-4 sm:px-6 py-3 pt-6 flex justify-center">
-      <div className="w-full max-w-[1240px] min-h-[70px] bg-white rounded-full flex flex-col lg:flex-row lg:items-center px-4 sm:px-6 shadow-sm relative">
+      <motion.div
+        animate={controls}
+        initial={{ scale: 1, boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}
+        className="w-full max-w-[1240px] min-h-[70px] bg-white rounded-full flex flex-col lg:flex-row lg:items-center px-4 sm:px-6 shadow-sm relative"
+        style={{ willChange: "transform, box-shadow" }}
+      >
         {/* Mobile layout */}
         <div className="flex items-center justify-between h-[70px] w-full lg:hidden">
           {/* Logo */}
@@ -171,7 +198,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </nav>
   );
 };
