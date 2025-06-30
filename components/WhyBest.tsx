@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const features = [
   {
@@ -26,12 +28,20 @@ const features = [
 ];
 
 export default function WhyBest() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section className="px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+    <section className="px-4 sm:px-6 py-12 sm:py-16 lg:py-24" ref={ref}>
       {/* Main container with responsive layout */}
       <div className="flex flex-col lg:flex-row w-full max-w-[1439px] lg:px-20 justify-center items-center gap-8 sm:gap-12 lg:gap-[60px] mx-auto">
         {/* LEFT CARD with responsive dimensions */}
-        <div className="flex w-full lg:w-auto lg:h-[754px] p-6 sm:p-8 lg:p-[50px] flex-col items-start gap-4 sm:gap-6 lg:gap-[26px] lg:flex-1 bg-white rounded-[12px] border border-[#F1F1F3] shadow-[6px_6px_25px_1px_rgba(0,0,0,0.26)]">
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="flex w-full lg:w-auto lg:h-[754px] p-6 sm:p-8 lg:p-[50px] flex-col items-start gap-4 sm:gap-6 lg:gap-[26px] lg:flex-1 bg-white rounded-[12px] border border-[#F1F1F3] shadow-[6px_6px_25px_1px_rgba(0,0,0,0.26)]"
+        >
           <h2 className="text-2xl sm:text-3xl lg:text-5xl leading-tight font-bold text-black">
             Why We are the <br /> best in the market
           </h2>
@@ -53,13 +63,29 @@ export default function WhyBest() {
               className="w-full h-full object-cover"
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* RIGHT FEATURES GRID with responsive layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-0 w-full lg:w-auto">
+        <motion.div
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.18,
+              },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-0 w-full lg:w-auto"
+        >
           {features.map((item, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="flex w-full sm:w-auto lg:w-[305.767px] h-auto lg:h-[260px] p-4 sm:p-[15px_24px] flex-col items-start gap-3 sm:gap-4 flex-shrink-0"
             >
               <div className="w-[48px] sm:w-[54px] h-[48px] sm:h-[54px] rounded-full bg-[#5271FF] flex items-center justify-center">
@@ -77,9 +103,9 @@ export default function WhyBest() {
               <p className="text-sm sm:text-base lg:text-lg text-[#555] leading-[1.6]">
                 {item.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

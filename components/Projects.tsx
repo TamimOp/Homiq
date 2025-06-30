@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const projects = [
   {
@@ -33,6 +33,10 @@ export default function Project() {
   const [activeIndex, setActiveIndex] = useState(1);
   const [cardWidth, setCardWidth] = useState(732);
 
+  // Add ref and inView for scroll animation
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+
   // Responsive card width
   useEffect(() => {
     function handleResize() {
@@ -58,7 +62,10 @@ export default function Project() {
   ];
 
   return (
-    <section className="relative w-full bg-[#F5F7FF] py-24 overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-[#F5F7FF] py-24 overflow-hidden"
+    >
       {/* Background Ellipse */}
       <Image
         src="/assets/projectEllipseBg.png"
@@ -68,16 +75,27 @@ export default function Project() {
         style={{ minWidth: 300, maxWidth: 900 }}
       />
 
-      <div className="relative z-10 text-center mb-14 px-4">
+      {/* Animated Section Header */}
+      <motion.div
+        className="relative z-10 text-center mb-14 px-4"
+        initial={{ opacity: 0, y: 60 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <h2 className="text-5xl font-bold text-black">Our Top Projects</h2>
         <p className="text-[#3C3C3C] text-xl mt-2">
           Handpicked properties in vibrant cities — filtered by <br />
           quality, price, and demand.
         </p>
-      </div>
+      </motion.div>
 
-      {/* Card Container with Framer Motion */}
-      <div className="relative z-10 w-full flex justify-center overflow-x-auto md:overflow-visible px-2">
+      {/* Animated Card Container */}
+      <motion.div
+        className="relative z-10 w-full flex justify-center overflow-x-auto md:overflow-visible px-2"
+        initial={{ opacity: 0, y: 60 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+      >
         <motion.div
           className="flex gap-5"
           animate={{ x: 0 }}
@@ -208,7 +226,7 @@ export default function Project() {
             );
           })}
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Pagination */}
       <div className="relative z-10 mt-10 flex justify-center gap-2">
@@ -226,11 +244,16 @@ export default function Project() {
       </div>
 
       {/* CTA Button */}
-      <div className="relative z-10 mt-10 text-center">
+      <motion.div
+        className="relative z-10 mt-10 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
+      >
         <button className="bg-[#5271FF] hover:bg-[#3f5ed6] text-white px-6 py-3 rounded-full text-sm font-medium shadow-md transition-all duration-300">
           Browse More Properties
         </button>
-      </div>
+      </motion.div>
     </section>
   );
 }

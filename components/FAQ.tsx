@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { motion, useInView } from "framer-motion";
 
 const faqs = [
   {
@@ -30,14 +31,27 @@ const faqs = [
 
 export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   const toggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? -1 : index));
   };
 
   return (
-    <section className="px-6 py-20 max-w-[1200px] mx-auto">
-      <div className="flex flex-col md:flex-row justify-between gap-10 mb-10 md:items-center">
+    <motion.section
+      ref={sectionRef}
+      className="px-6 py-20 max-w-[1200px] mx-auto"
+      initial={{ opacity: 0, y: 60 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+    >
+      <motion.div
+        className="flex flex-col md:flex-row justify-between gap-10 mb-10 md:items-center"
+        initial={{ opacity: 0, y: 40 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+      >
         <h2 className="text-5xl font-bold leading-snug text-black">
           Frequently Asked <br /> Questions
         </h2>
@@ -46,15 +60,22 @@ export default function FAQ() {
           property listings, and the real estate process. We&apos;re here to
           provide clarity and assist you every step of the way.
         </p>
-      </div>
+      </motion.div>
 
       <div className="flex flex-col gap-4">
         {faqs.map((item, index) => (
-          <div
+          <motion.div
             key={index}
             className={`rounded-xl border border-gray-300 transition-all overflow-hidden bg-white ${
               activeIndex === index ? "pb-5" : ""
             }`}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{
+              duration: 0.5,
+              ease: "easeOut",
+              delay: 0.15 + index * 0.08,
+            }}
           >
             <button
               onClick={() => toggle(index)}
@@ -69,7 +90,12 @@ export default function FAQ() {
             </button>
 
             {activeIndex === index && item.answer && (
-              <div className="px-6 flex flex-col sm:flex-row justify-between gap-4 items-start">
+              <motion.div
+                className="px-6 flex flex-col sm:flex-row justify-between gap-4 items-start"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
                 <p className="text-base text-gray-700 max-w-2xl leading-relaxed">
                   {item.answer}
                 </p>
@@ -82,11 +108,11 @@ export default function FAQ() {
                     className="rounded-xl object-cover"
                   />
                 )}
-              </div>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
