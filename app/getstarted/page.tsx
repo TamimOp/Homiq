@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { Star } from "lucide-react";
-import React, { useRef } from "react";
+import { Star, Square, CheckSquare } from "lucide-react";
+import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 const GetStarted = () => {
-  // Add ref and inView
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const [checked, setChecked] = useState(false);
 
   return (
     <section
@@ -73,12 +74,32 @@ const GetStarted = () => {
                   gap: "40px",
                 }}
               >
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Login</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  Welcome to Homic
+                </h2>
+                <div className="text-gray-500 text-base mb-2 font-medium flex gap-4">
+                  or sign in with{" "}
+                  <a
+                    href="#"
+                    className="text-[#5271FF] font-semibold hover:underline"
+                  >
+                    Email
+                  </a>
+                  <a
+                    href="#"
+                    className="text-[#5271FF] font-semibold hover:underline"
+                  >
+                    Gmail
+                  </a>
+                  <a
+                    href="#"
+                    className="text-[#5271FF] font-semibold hover:underline"
+                  >
+                    Facebook
+                  </a>
+                </div>
                 <div className="flex flex-col gap-6 w-full max-w-md">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email
-                    </label>
                     <input
                       type="email"
                       placeholder="Enter your email"
@@ -94,9 +115,6 @@ const GetStarted = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Password
-                    </label>
                     <input
                       type="password"
                       placeholder="Enter your password"
@@ -111,18 +129,54 @@ const GetStarted = () => {
                       required
                     />
                   </div>
+                  <div className="flex items-center gap-4 mt-2">
+                    <button
+                      type="button"
+                      aria-label="checkbox"
+                      onClick={() => setChecked((prev) => !prev)}
+                      className="focus:outline-none"
+                    >
+                      {checked ? (
+                        <CheckSquare size={28} color="#5271FF" fill="#5271FF" />
+                      ) : (
+                        <Square size={28} color="#5271FF" />
+                      )}
+                    </button>
+                    <label
+                      htmlFor="updates"
+                      className="text-sm text-gray-700 text-start cursor-pointer"
+                      onClick={() => setChecked((prev) => !prev)}
+                    >
+                      I want to receive updates about offers, news, city
+                      launches, and exclusive deals
+                    </label>
+                  </div>
+                  <div className="text-sm text-gray-700 mt-2">
+                    Already have an account?{" "}
+                    <a
+                      href="#"
+                      className="text-[#5271FF] font-semibold hover:underline"
+                    >
+                      Log in
+                    </a>
+                  </div>
                 </div>
-                <button
-                  type="submit"
-                  className="px-8 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition text-base"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #5271FF 0.29%, #4C68EB 54.62%, #314499 100.29%)",
-                    border: "3px solid #5271FF7A",
-                  }}
-                >
-                  Login
-                </button>
+                <div className="text-xs text-gray-500 text-center max-w-xs mt-2">
+                  By creating an account you agree to our <br />
+                  <a
+                    href="#"
+                    className="text-[#5271FF] font-semibold hover:underline"
+                  >
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="#"
+                    className="text-[#5271FF] font-semibold hover:underline"
+                  >
+                    Privacy Policy
+                  </a>
+                </div>
               </form>
             </div>
           </div>
