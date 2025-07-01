@@ -68,7 +68,7 @@ const Approach = () => {
             intelligent filters, lifestyle mapping, and verified listings.
           </p>
 
-          <button className="mt-6 px-6 py-3 rounded-full bg-[#4f6ff4] text-white font-semibold text-xl shadow-md hover:bg-[#3c5ee0] transition">
+          <button className="mt-6 px-6 py-3 rounded-full bg-[#5271FF] text-white font-semibold text-xl shadow-md hover:bg-[#3c5ee0] transition border-[3px] border-[#9daffd]">
             Contact Us
           </button>
 

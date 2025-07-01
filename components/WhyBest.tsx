@@ -50,7 +50,7 @@ export default function WhyBest() {
             powerful filters, interactive
           </p>
 
-          <button className="bg-[#5271FF] text-white px-4 sm:px-6 py-2 sm:py-2.5 text-base sm:text-lg lg:text-xl font-semibold hover:bg-[#3f5be0] transition rounded-[50px] border-[3px] border-[rgba(82,113,255,0.48)] shadow-[0px_-0.301px_0.241px_-1.167px_rgba(71,136,255,0.68)_inset,0px_-1.144px_0.915px_-2.333px_rgba(71,136,255,0.61)_inset,0px_-5px_4px_-3.5px_rgba(71,136,255,0.30)_inset,0px_0.602px_0.602px_-1.25px_rgba(0,0,0,0.18),0px_2.289px_2.289px_-2.5px_rgba(0,0,0,0.16),0px_10px_10px_-3.75px_rgba(0,0,0,0.06)]">
+          <button className="mt-6 px-6 py-3 rounded-full bg-[#5271FF] text-white font-semibold text-xl shadow-md hover:bg-[#3c5ee0] transition border-[3px] border-[#9daffd]">
             Explore More
           </button>
 

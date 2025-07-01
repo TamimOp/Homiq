@@ -250,7 +250,7 @@ export default function Project() {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
       >
-        <button className="bg-[#5271FF] hover:bg-[#3f5ed6] text-white px-6 py-3 rounded-full text-sm font-medium shadow-md transition-all duration-300">
+        <button className="mt-6 px-6 py-3 rounded-full bg-[#5271FF] text-white font-semibold text-xl hover:bg-[#3c5ee0] border-[3px] border-[#9daffd] shadow-md transition-all duration-300">
           Browse More Properties
         </button>
       </motion.div>

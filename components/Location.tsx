@@ -106,7 +106,7 @@ const Location = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-lg font-medium rounded-full shadow-md transition hover:brightness-105"
+            className="mt-6 px-6 py-3 rounded-full bg-[#5271FF] text-white font-semibold text-xl shadow-md hover:bg-[#3c5ee0] transition border-[3px] border-[#9daffd]"
           >
             Find Nearest Properties
             <span className="ml-2 text-xl">→</span>
