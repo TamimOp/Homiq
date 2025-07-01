@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Star, Square, CheckSquare } from "lucide-react";
+import { Star, Check } from "lucide-react"; // Add Check to your imports
 import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -74,10 +74,10 @@ const GetStarted = () => {
                   gap: "40px",
                 }}
               >
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-4xl font-bold text-[#181A18] mb-2">
                   Welcome to Homic
                 </h2>
-                <div className="text-gray-500 text-base mb-2 font-medium flex gap-4">
+                <div className="text-[#181A18] text-base mb-2 font-medium flex gap-4">
                   or sign in with{" "}
                   <a
                     href="#"
@@ -98,15 +98,15 @@ const GetStarted = () => {
                     Facebook
                   </a>
                 </div>
-                <div className="flex flex-col gap-6 w-full max-w-md">
-                  <div>
+                <div className="flex flex-col gap-6 items-center mb-2">
+                  <div style={{ width: "612px" }}>
                     <input
                       type="email"
                       placeholder="Enter your email"
                       className="w-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#4f6ff4]"
                       style={{
-                        borderRadius: "10px",
-                        background: "#FFF",
+                        borderRadius: "12px",
+                        background: "var(--BG, #F2F0F2)",
                         boxShadow:
                           "6px 4px 8.3px 0px rgba(154, 154, 154, 0.16)",
                         border: "none",
@@ -114,14 +114,14 @@ const GetStarted = () => {
                       required
                     />
                   </div>
-                  <div>
+                  <div style={{ width: "612px" }}>
                     <input
                       type="password"
                       placeholder="Enter your password"
                       className="w-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#4f6ff4]"
                       style={{
-                        borderRadius: "10px",
-                        background: "#FFF",
+                        borderRadius: "12px",
+                        background: "var(--BG, #F2F0F2)",
                         boxShadow:
                           "6px 4px 8.3px 0px rgba(154, 154, 154, 0.16)",
                         border: "none",
@@ -129,51 +129,89 @@ const GetStarted = () => {
                       required
                     />
                   </div>
-                  <div className="flex items-center gap-4 mt-2">
-                    <button
-                      type="button"
-                      aria-label="checkbox"
-                      onClick={() => setChecked((prev) => !prev)}
-                      className="focus:outline-none"
-                    >
-                      {checked ? (
-                        <CheckSquare size={28} color="#5271FF" fill="#5271FF" />
-                      ) : (
-                        <Square size={28} color="#5271FF" />
-                      )}
-                    </button>
-                    <label
-                      htmlFor="updates"
-                      className="text-sm text-gray-700 text-start cursor-pointer"
-                      onClick={() => setChecked((prev) => !prev)}
-                    >
-                      I want to receive updates about offers, news, city
-                      launches, and exclusive deals
-                    </label>
-                  </div>
-                  <div className="text-sm text-gray-700 mt-2">
-                    Already have an account?{" "}
-                    <a
-                      href="#"
-                      className="text-[#5271FF] font-semibold hover:underline"
-                    >
-                      Log in
-                    </a>
-                  </div>
                 </div>
-                <div className="text-xs text-gray-500 text-center max-w-xs mt-2">
-                  By creating an account you agree to our <br />
+                {/* Check content */}
+                <div
+                  className="flex"
+                  style={{
+                    width: "465px",
+                    height: "40px",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "16px",
+                    display: "flex",
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-label="checkbox"
+                    onClick={() => setChecked((prev) => !prev)}
+                    className="focus:outline-none"
+                    style={{
+                      padding: 0,
+                      background: "none",
+                      border: "none",
+                      position: "relative",
+                      width: 32,
+                      height: 32,
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: "relative",
+                        display: "inline-block",
+                        width: 32,
+                        height: 32,
+                      }}
+                    >
+                      <Image
+                        src="/assets/Checkbox.svg"
+                        alt={checked ? "Checked" : "Unchecked"}
+                        width={32}
+                        height={32}
+                      />
+                      {checked && (
+                        <Check
+                          size={22}
+                          strokeWidth={3}
+                          className="text-[#5271FF]"
+                          style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            pointerEvents: "none",
+                          }}
+                        />
+                      )}
+                    </span>
+                  </button>
+                  <label
+                    htmlFor="updates"
+                    className="text-sm text-gray-700 text-start cursor-pointer"
+                    onClick={() => setChecked((prev) => !prev)}
+                    style={{ margin: 0 }}
+                  >
+                    I want to receive updates about offers, news, city launches,
+                    and exclusive deals
+                  </label>
+                </div>
+                <div className="flex gap-4 text-2xl font-bold text-[#181A18] mt-2">
+                  Already have an account?{" "}
                   <a
                     href="#"
                     className="text-[#5271FF] font-semibold hover:underline"
                   >
+                    Log in
+                  </a>
+                </div>
+                <div className="text-base text-[#181A18] text-center max-w-xs mt-2">
+                  By creating an account you agree to our <br />
+                  <a href="#" className="text-[#5271FF] hover:underline">
                     Terms of Service
                   </a>{" "}
                   and{" "}
-                  <a
-                    href="#"
-                    className="text-[#5271FF] font-semibold hover:underline"
-                  >
+                  <a href="#" className="text-[#5271FF] hover:underline">
                     Privacy Policy
                   </a>
                 </div>
