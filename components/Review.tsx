@@ -82,11 +82,14 @@ export default function Review() {
               alt={`Reviewer ${i + 1}`}
               width={40}
               height={40}
-              className="rounded-full border-2 border-white md:w-12 md:h-12"
+              className={`rounded-full border-2 border-white md:w-12 md:h-12 ${
+                i !== 0 ? "-ml-3" : ""
+              }`}
+              style={{ zIndex: 10 - i }}
             />
           ))}
-          <p className="ml-2 text-xs md:text-sm text-gray-500">
-            More than <span className="font-semibold">500+</span>
+          <p className="ml-2 text-xs md:text-sm font-semibold text-[#666666]">
+            More than <span className="text-black">500+</span>
             <br className="hidden md:block" /> Client Reviews
           </p>
         </motion.div>
