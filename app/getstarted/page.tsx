@@ -62,8 +62,9 @@ const GetStarted = () => {
               <form
                 className="flex flex-col justify-center items-center gap-10"
                 style={{
-                  width: "866px",
-                  padding: "90px 80px",
+                  width: "100%",
+                  maxWidth: "866px",
+                  padding: "7vw 4vw",
                   background: "rgba(255,255,255,0.85)",
                   borderRadius: "24px",
                   boxShadow: "0 8px 32px rgba(80, 112, 255, 0.10)",
@@ -74,10 +75,10 @@ const GetStarted = () => {
                   gap: "40px",
                 }}
               >
-                <h2 className="text-4xl font-bold text-[#181A18] mb-2">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#181A18] mb-2">
                   Welcome to Homic
                 </h2>
-                <div className="text-[#181A18] text-base mb-2 font-medium flex gap-4">
+                <div className="text-[#181A18] text-base mb-2 font-medium flex flex-wrap gap-2 sm:gap-4 justify-center">
                   or sign in with{" "}
                   <a
                     href="#"
@@ -98,8 +99,8 @@ const GetStarted = () => {
                     Facebook
                   </a>
                 </div>
-                <div className="flex flex-col gap-6 items-center mb-2">
-                  <div style={{ width: "612px" }}>
+                <div className="flex flex-col gap-6 items-center mb-2 w-full">
+                  <div className="w-full" style={{ maxWidth: 612 }}>
                     <input
                       type="email"
                       placeholder="Enter your email"
@@ -114,7 +115,7 @@ const GetStarted = () => {
                       required
                     />
                   </div>
-                  <div style={{ width: "612px" }}>
+                  <div className="w-full" style={{ maxWidth: 612 }}>
                     <input
                       type="password"
                       placeholder="Enter your password"
@@ -132,13 +133,14 @@ const GetStarted = () => {
                 </div>
                 {/* Check content */}
                 <div
-                  className="flex"
+                  className="flex items-center"
                   style={{
-                    width: "465px",
-                    height: "40px",
+                    width: "100%",
+                    maxWidth: 465,
+                    height: 40,
                     justifyContent: "center",
                     alignItems: "center",
-                    gap: "16px",
+                    gap: 16,
                     display: "flex",
                   }}
                 >
@@ -196,7 +198,7 @@ const GetStarted = () => {
                     and exclusive deals
                   </label>
                 </div>
-                <div className="flex gap-4 text-2xl font-bold text-[#181A18] mt-2">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-lg sm:text-2xl font-bold text-[#181A18] mt-2 items-center justify-center">
                   Already have an account?{" "}
                   <a
                     href="#"

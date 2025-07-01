@@ -132,7 +132,7 @@ const Navbar = () => {
               Login
             </Link>
             <Link
-              href="/get-started"
+              href="/getstarted"
               className="px-4 xl:px-6 py-2 border-2 border-[#4f6ff4] rounded-full text-[#4f6ff4] font-semibold hover:bg-[#4f6ff4] hover:text-white transition text-[14px] xl:text-xl whitespace-nowrap"
             >
               Get Started
@@ -189,7 +189,7 @@ const Navbar = () => {
                 Login
               </Link>
               <Link
-                href="/get-started"
+                href="/getstarted"
                 className="px-6 py-2 border-2 border-[#4f6ff4] rounded-full text-[#4f6ff4] font-semibold hover:bg-[#4f6ff4] hover:text-white transition text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
