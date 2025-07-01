@@ -232,7 +232,7 @@ const Hero = () => {
                 style={{
                   background:
                     "linear-gradient(90deg, #5271FF 0.29%, #4C68EB 54.62%, #314499 100.29%)",
-                  border: "3px solid #5271FF7A",
+                  border: "3px solid #9daffd",
                 }}
               >
                 Browse Properties
