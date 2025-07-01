@@ -14,17 +14,20 @@ const faqs = [
   },
   {
     question: "What documents do I need to sell my property through Estatein?",
-    answer: "",
+    answer:
+      "To sell your property, you typically need proof of ownership, identification documents, and any relevant property certificates. Our agents will guide you through the complete documentation process.",
     image: "",
   },
   {
     question: "How can I contact an Homiq agent?",
-    answer: "",
+    answer:
+      "You can contact a Homiq agent through our website's contact form, by calling our support number, or by visiting one of our local offices. Our team is always ready to assist you.",
     image: "",
   },
   {
     question: "Discover Properties with the Best Value",
-    answer: "",
+    answer:
+      "Browse our listings to find properties that match your preferences and budget. Our platform offers advanced filters to help you discover the best value deals in your desired location.",
     image: "",
   },
 ];
@@ -66,9 +69,13 @@ export default function FAQ() {
         {faqs.map((item, index) => (
           <motion.div
             key={index}
-            className={`rounded-xl border border-gray-300 transition-all overflow-hidden bg-white ${
+            className={`transition-all overflow-hidden bg-white ${
               activeIndex === index ? "pb-5" : ""
             }`}
+            style={{
+              borderRadius: "11px",
+              border: "2px solid #C9C9C9",
+            }}
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{
