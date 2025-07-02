@@ -4,14 +4,22 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { properties } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
-import { ChevronLeft, ChevronRight, ChevronDown, Plus, Minus, X, CarFront } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  Plus,
+  Minus,
+  X,
+  CarFront,
+} from "lucide-react";
 
 const PAGE_SIZE = 6;
 
 export default function BrowsePage() {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   // Search filters state
   const [filters, setFilters] = useState({
     lookingFor: "",
@@ -127,7 +135,9 @@ export default function BrowsePage() {
                   <input
                     type="text"
                     value={filters.location}
-                    onChange={(e) => handleFilterChange("location", e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("location", e.target.value)
+                    }
                     placeholder="Enter location"
                     className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-32"
                   />
@@ -141,7 +151,9 @@ export default function BrowsePage() {
                   <input
                     type="text"
                     value={filters.lookingFor}
-                    onChange={(e) => handleFilterChange("lookingFor", e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("lookingFor", e.target.value)
+                    }
                     placeholder="Property type"
                     className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-32"
                   />
@@ -155,7 +167,9 @@ export default function BrowsePage() {
                   <input
                     type="text"
                     value={filters.price}
-                    onChange={(e) => handleFilterChange("price", e.target.value)}
+                    onChange={(e) =>
+                      handleFilterChange("price", e.target.value)
+                    }
                     placeholder="Budget"
                     className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-24"
                   />
@@ -269,7 +283,9 @@ export default function BrowsePage() {
                 </button>
               ))}
               <button
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
                 className="disabled:opacity-50 bg-gray-200 p-2 rounded"
               >
