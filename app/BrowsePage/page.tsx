@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { properties } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -16,7 +16,7 @@ import {
 
 const PAGE_SIZE = 6;
 
-export default function BrowsePage() {
+function BrowsePageContent() {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -290,5 +290,13 @@ export default function BrowsePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BrowsePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BrowsePageContent />
+    </Suspense>
   );
 }
