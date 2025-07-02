@@ -4,14 +4,44 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const [activeTab, setActiveTab] = useState("Rent");
   const tabs = ["Rent", "Buy", "Sell"];
+  const router = useRouter();
+
+  // Search form state
+  const [searchParams, setSearchParams] = useState({
+    lookingFor: "",
+    price: "",
+    location: "",
+    rooms: "",
+  });
 
   // Add ref and inView
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const handleInputChange = (field: string, value: string) => {
+    setSearchParams((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleBrowseProperties = () => {
+    // Create URL with search parameters
+    const params = new URLSearchParams();
+    if (searchParams.lookingFor)
+      params.set("lookingFor", searchParams.lookingFor);
+    if (searchParams.price) params.set("price", searchParams.price);
+    if (searchParams.location) params.set("location", searchParams.location);
+    if (searchParams.rooms) params.set("rooms", searchParams.rooms);
+    params.set("tab", activeTab);
+
+    router.push(`/BrowsePage?${params.toString()}`);
+  };
 
   return (
     <section
@@ -146,6 +176,10 @@ const Hero = () => {
                 <input
                   type="text"
                   placeholder="Enter type"
+                  value={searchParams.lookingFor}
+                  onChange={(e) =>
+                    handleInputChange("lookingFor", e.target.value)
+                  }
                   className="w-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#4f6ff4]"
                   style={{
                     borderRadius: "10px",
@@ -162,6 +196,8 @@ const Hero = () => {
                 <input
                   type="text"
                   placeholder="Price"
+                  value={searchParams.price}
+                  onChange={(e) => handleInputChange("price", e.target.value)}
                   className="w-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#4f6ff4]"
                   style={{
                     borderRadius: "10px",
@@ -178,6 +214,10 @@ const Hero = () => {
                 <input
                   type="text"
                   placeholder="Location"
+                  value={searchParams.location}
+                  onChange={(e) =>
+                    handleInputChange("location", e.target.value)
+                  }
                   className="w-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#4f6ff4]"
                   style={{
                     borderRadius: "10px",
@@ -194,6 +234,8 @@ const Hero = () => {
                 <input
                   type="text"
                   placeholder="2 Bed"
+                  value={searchParams.rooms}
+                  onChange={(e) => handleInputChange("rooms", e.target.value)}
                   className="w-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#4f6ff4]"
                   style={{
                     borderRadius: "10px",
@@ -228,6 +270,7 @@ const Hero = () => {
               </div>
 
               <button
+                onClick={handleBrowseProperties}
                 className="px-6 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm w-full lg:w-auto"
                 style={{
                   background:
