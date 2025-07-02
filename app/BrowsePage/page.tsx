@@ -120,118 +120,112 @@ export default function BrowsePage() {
 
   return (
     <div className="w-full min-h-screen bg-[#f9fafe] px-6 py-4">
-      {/* Main Content - Left and Right */}
-      <div className="flex w-full gap-6">
-        {/* Left: Search Bar + Cards */}
-        <div className="w-[60%]">
-          {/* Custom Search Bar */}
-          <div className="w-full space-y-3 mb-6">
-            {/* Main search bar */}
-            <div className="flex items-center bg-white rounded-2xl shadow-md px-6 py-4">
-              <div className="flex items-center gap-10 w-full">
-                {/* Location */}
-                <div>
-                  <p className="text-xs text-gray-400">Location</p>
-                  <input
-                    type="text"
-                    value={filters.location}
-                    onChange={(e) =>
-                      handleFilterChange("location", e.target.value)
-                    }
-                    placeholder="Enter location"
-                    className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-32"
-                  />
-                </div>
-
-                <div className="w-[1px] h-8 bg-gray-200" />
-
-                {/* Looking For */}
-                <div>
-                  <p className="text-xs text-gray-400">Looking For</p>
-                  <input
-                    type="text"
-                    value={filters.lookingFor}
-                    onChange={(e) =>
-                      handleFilterChange("lookingFor", e.target.value)
-                    }
-                    placeholder="Property type"
-                    className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-32"
-                  />
-                </div>
-
-                <div className="w-[1px] h-8 bg-gray-200" />
-
-                {/* Price */}
-                <div>
-                  <p className="text-xs text-gray-400">Price</p>
-                  <input
-                    type="text"
-                    value={filters.price}
-                    onChange={(e) =>
-                      handleFilterChange("price", e.target.value)
-                    }
-                    placeholder="Budget"
-                    className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-24"
-                  />
-                </div>
-
-                <div className="w-[1px] h-8 bg-gray-200" />
-
-                {/* Rooms/Guests */}
-                <div>
-                  <p className="text-xs text-gray-400">Rooms</p>
-                  <div className="flex items-center gap-3 text-black">
-                    <Plus
-                      size={16}
-                      className="cursor-pointer"
-                      onClick={() => setGuests((prev) => prev + 1)}
-                    />
-                    <span className="font-medium">{guests}</span>
-                    <Minus
-                      size={16}
-                      className="cursor-pointer"
-                      onClick={() => setGuests((prev) => Math.max(1, prev - 1))}
-                    />
-                  </div>
-                </div>
-              </div>
+      {/* Top Centered Search Bar */}
+      <div
+        className="mb-6 mx-auto"
+        style={{
+          maxWidth: 700,
+          width: "100%",
+        }}
+      >
+        <div className="flex items-center bg-white rounded-2xl shadow-md px-6 py-4">
+          <div className="flex items-center gap-10">
+            {/* Location */}
+            <div>
+              <p className="text-xs text-gray-400">Location</p>
+              <input
+                type="text"
+                value={filters.location}
+                onChange={(e) => handleFilterChange("location", e.target.value)}
+                placeholder="Enter location"
+                className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-32"
+              />
             </div>
-
-            {/* Filters and Sort */}
-            <div className="flex items-center justify-between">
-              {/* Left: Filters */}
-              <div className="flex items-center gap-4">
-                <button className="bg-[#4262FF] text-white text-sm font-medium px-4 py-2 rounded-full flex items-center gap-1">
-                  More filters <ChevronDown size={14} />
-                </button>
-
-                {activeFilters.map((filter, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-1 px-3 py-1.5 border border-gray-300 rounded-full bg-white text-sm font-medium text-black"
-                  >
-                    <CarFront size={16} />
-                    {filter}
-                    <X
-                      size={14}
-                      className="cursor-pointer"
-                      onClick={() => removeFilter(filter)}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* Right: Sort by */}
-              <div className="text-sm text-black">
-                Sort by:{" "}
-                <span className="text-[#4262FF] font-medium cursor-pointer">
-                  Availability
-                </span>{" "}
-                <ChevronDown size={14} className="inline-block ml-1" />
+            <div className="w-[1px] h-8 bg-gray-200" />
+            {/* Looking For */}
+            <div>
+              <p className="text-xs text-gray-400">Looking For</p>
+              <input
+                type="text"
+                value={filters.lookingFor}
+                onChange={(e) =>
+                  handleFilterChange("lookingFor", e.target.value)
+                }
+                placeholder="Property type"
+                className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-32"
+              />
+            </div>
+            <div className="w-[1px] h-8 bg-gray-200" />
+            {/* Price */}
+            <div>
+              <p className="text-xs text-gray-400">Price</p>
+              <input
+                type="text"
+                value={filters.price}
+                onChange={(e) => handleFilterChange("price", e.target.value)}
+                placeholder="Budget"
+                className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-24"
+              />
+            </div>
+            <div className="w-[1px] h-8 bg-gray-200" />
+            {/* Rooms/Guests */}
+            <div>
+              <p className="text-xs text-gray-400">Rooms</p>
+              <div className="flex items-center gap-3 text-black">
+                <Plus
+                  size={16}
+                  className="cursor-pointer"
+                  onClick={() => setGuests((prev) => prev + 1)}
+                />
+                <span className="font-medium">{guests}</span>
+                <Minus
+                  size={16}
+                  className="cursor-pointer"
+                  onClick={() => setGuests((prev) => Math.max(1, prev - 1))}
+                />
               </div>
             </div>
           </div>
+        </div>
+        {/* Filters and Sort */}
+        <div className="flex items-center justify-between mt-3">
+          {/* Left: Filters */}
+          <div className="flex items-center gap-4">
+            <button className="bg-[#4262FF] text-white text-sm font-medium px-4 py-2 rounded-full flex items-center gap-1">
+              More filters <ChevronDown size={14} />
+            </button>
 
+            {activeFilters.map((filter, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-1 px-3 py-1.5 border border-gray-300 rounded-full bg-white text-sm font-medium text-black"
+              >
+                <CarFront size={16} />
+                {filter}
+                <X
+                  size={14}
+                  className="cursor-pointer"
+                  onClick={() => removeFilter(filter)}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Right: Sort by */}
+          <div className="text-sm text-black">
+            Sort by:{" "}
+            <span className="text-[#4262FF] font-medium cursor-pointer">
+              Availability
+            </span>{" "}
+            <ChevronDown size={14} className="inline-block ml-1" />
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content - Left and Right */}
+      <div className="flex w-full gap-6">
+        {/* Left: Cards */}
+        <div className="w-[60%]">
           {/* Results Summary */}
           <div className="flex items-center justify-between mb-6">
             <div className="text-gray-400 text-sm">
