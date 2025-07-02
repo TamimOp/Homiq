@@ -288,11 +288,6 @@ export default function BrowsePage() {
             </div>
           )}
         </div>
-
-        {/* Right: Map */}
-        <div className="w-[40%] h-[80vh] rounded-2xl shadow overflow-hidden">
-          <div id="google-map" className="w-full h-full" />
-        </div>
       </div>
     </div>
   );
