@@ -281,7 +281,7 @@ function BrowsePageContent() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-6">
+            <div className="flex justify-start items-center gap-2 mt-6">
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
@@ -295,7 +295,7 @@ function BrowsePageContent() {
                   onClick={() => setCurrentPage(i + 1)}
                   className={`w-8 h-8 text-sm rounded-full ${
                     i + 1 === currentPage
-                      ? "bg-blue-500 text-white"
+                      ? "bg-[#5271FF] text-white"
                       : "bg-gray-100"
                   }`}
                 >
