@@ -13,6 +13,7 @@ import {
   X,
   CarFront,
 } from "lucide-react";
+import Image from "next/image";
 
 const PAGE_SIZE = 6;
 
@@ -287,6 +288,25 @@ function BrowsePageContent() {
               </button>
             </div>
           )}
+        </div>
+
+        {/* Right: Static Map Image */}
+        <div
+          className="rounded-2xl shadow overflow-hidden flex items-center justify-center bg-white"
+          style={{
+            width: 569,
+            height: 854,
+            flexShrink: 0,
+            position: "relative", // required for fill
+          }}
+        >
+          <Image
+            src="/assets/map2.png"
+            alt="Map"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
       </div>
     </div>
