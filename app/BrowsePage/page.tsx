@@ -265,7 +265,11 @@ function BrowsePageContent() {
           {currentItems.length > 0 ? (
             <div className="grid grid-cols-3 gap-5">
               {currentItems.map((property) => (
-                <PropertyCard key={property.id} {...property} />
+                <PropertyCard
+                  key={property.id}
+                  {...property}
+                  id={property.id.toString()}
+                />
               ))}
             </div>
           ) : (
@@ -322,7 +326,7 @@ function BrowsePageContent() {
             width: 569,
             height: 854,
             flexShrink: 0,
-            position: "relative", // required for fill
+            position: "relative",
           }}
         >
           <Image
