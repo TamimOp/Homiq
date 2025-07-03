@@ -135,7 +135,7 @@ export default function Review() {
             <motion.div
               className="flex flex-col items-start rounded-2xl w-full md:w-[350px] lg:w-[673px]"
               style={{
-                padding: "24px 18px",
+                padding: "24px 32px",
                 gap: 18,
                 borderRadius: 16,
                 background: "#F5F7FF",
