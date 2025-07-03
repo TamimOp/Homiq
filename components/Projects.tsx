@@ -53,6 +53,15 @@ export default function Project() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Auto-slide logic
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % projects.length);
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   const total = projects.length;
   const getIndex = (i: number) => (i + total) % total;
   const visibleCards = [
