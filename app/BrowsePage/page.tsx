@@ -125,12 +125,14 @@ function BrowsePageContent() {
       <div
         className="mb-6 mx-auto"
         style={{
-          maxWidth: 700,
+          maxWidth: 900, // Increased from 700 to accommodate the button
           width: "100%",
         }}
       >
         <div className="flex items-center bg-white rounded-2xl shadow-md px-6 py-4">
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-8">
+            {" "}
+            {/* Reduced gap from 10 to 8 */}
             {/* Location */}
             <div>
               <p className="text-xs text-gray-400">Location</p>
@@ -185,6 +187,29 @@ function BrowsePageContent() {
                   onClick={() => setGuests((prev) => Math.max(1, prev - 1))}
                 />
               </div>
+            </div>
+            <div className="w-[1px] h-8 bg-gray-200" />
+            {/* Browse Properties Button */}
+            <div className="flex items-center">
+              <button
+                className="text-sm font-semibold px-4 py-2 whitespace-nowrap flex items-center justify-center"
+                style={{
+                  borderRadius: "7px",
+                  border: "3px solid rgba(82, 113, 255, 0.48)",
+                  background: "#EFF2FF",
+                  color: "#4262FF",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0px)";
+                }}
+              >
+                Browse Properties
+              </button>
             </div>
           </div>
         </div>
