@@ -18,6 +18,7 @@ import {
   Wifi,
 } from "lucide-react";
 import Image from "next/image";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 const PAGE_SIZE = 6;
 
@@ -41,8 +42,66 @@ function BrowsePageContent() {
 
   // Filter dropdown state
   const [selectedRole, setSelectedRole] = useState("rent");
-  const [priceRange, setPriceRange] = useState([0, 300]); // Start from 0
+  const [priceRange, setPriceRange] = useState([0, 300]);
   const [amenities, setAmenities] = useState(["Parking"]);
+
+  // Animation variants with proper typing
+  const pageVariants: Variants = {
+    initial: {
+      opacity: 0,
+      y: 20,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    initial: {
+      opacity: 0,
+      y: 20,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const filterDropdownVariants: Variants = {
+    initial: {
+      opacity: 0,
+      scale: 0.95,
+      y: -10,
+    },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      y: -10,
+      transition: {
+        duration: 0.2,
+        ease: "easeIn",
+      },
+    },
+  };
 
   // Check for mobile screen
   useEffect(() => {
@@ -109,7 +168,7 @@ function BrowsePageContent() {
       ...prev,
       [field]: value,
     }));
-    setCurrentPage(1); // Reset to first page when filtering
+    setCurrentPage(1);
   };
 
   const removeFilter = (filterToRemove: string) => {
@@ -123,7 +182,6 @@ function BrowsePageContent() {
         ? prev.filter((a) => a !== amenity)
         : [...prev, amenity];
 
-      // Update active filters
       setActiveFilters(newAmenities);
       return newAmenities;
     });
@@ -146,7 +204,6 @@ function BrowsePageContent() {
     }
   };
 
-  // Handle dual range slider
   const handleMinPriceChange = (value: number) => {
     const newValue = Math.min(value, priceRange[1]);
     setPriceRange([newValue, priceRange[1]]);
@@ -158,7 +215,12 @@ function BrowsePageContent() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#f9fafe] px-3 sm:px-8 py-4">
+    <motion.div
+      className="w-full min-h-screen bg-[#f9fafe] px-3 sm:px-8 py-4"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+    >
       {/* Custom CSS for range sliders */}
       <style jsx global>{`
         .dual-range-slider {
@@ -224,7 +286,10 @@ function BrowsePageContent() {
       `}</style>
 
       {/* Top Centered Search Bar */}
-      <div className="mb-6 mx-auto max-w-4xl w-full">
+      <motion.div
+        className="mb-6 mx-auto max-w-4xl w-full"
+        variants={itemVariants}
+      >
         <div className="bg-white rounded-2xl shadow-md p-4 sm:px-6 sm:py-4">
           {/* Mobile/Tablet Search Bar */}
           {isMobile ? (
@@ -285,16 +350,18 @@ function BrowsePageContent() {
                   </div>
                 </div>
               </div>
-              <button
+              <motion.button
                 className="w-full text-sm font-semibold py-3 px-4 rounded-lg"
                 style={{
                   border: "3px solid rgba(82, 113, 255, 0.48)",
                   background: "#EFF2FF",
                   color: "#4262FF",
                 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Browse Properties
-              </button>
+              </motion.button>
             </div>
           ) : (
             /* Desktop Search Bar */
@@ -357,7 +424,7 @@ function BrowsePageContent() {
                 </div>
               </div>
               <div className="flex items-center flex-shrink-0">
-                <button
+                <motion.button
                   className="text-sm font-semibold px-3 lg:px-4 py-2 whitespace-nowrap flex items-center justify-center"
                   style={{
                     borderRadius: "7px",
@@ -365,177 +432,211 @@ function BrowsePageContent() {
                     background: "#EFF2FF",
                     color: "#4262FF",
                     cursor: "pointer",
-                    transition: "all 0.2s ease",
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-1px)";
+                  whileHover={{
+                    scale: 1.02,
+                    y: -1,
                   }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0px)";
-                  }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   Browse Properties
-                </button>
+                </motion.button>
               </div>
             </div>
           )}
         </div>
 
         {/* Filters and Sort */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3 gap-3 relative">
+        <motion.div
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3 gap-3 relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+        >
           <div className="flex items-center gap-4 overflow-x-auto w-full sm:w-auto">
-            <button
+            <motion.button
               className="bg-[#4262FF] text-white text-sm font-medium px-4 py-2 rounded-full flex items-center gap-1 flex-shrink-0"
               onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               More filters <ChevronDown size={14} />
-            </button>
+            </motion.button>
 
             {/* Filter Dropdown */}
-            {showFilterDropdown && (
-              <div className="absolute top-12 left-0 bg-white rounded-2xl shadow-lg p-6 w-80 z-10 border">
-                <div className="space-y-6">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-black">Filter</h3>
-                    <X
-                      size={20}
-                      className="cursor-pointer text-gray-500"
-                      onClick={() => setShowFilterDropdown(false)}
-                    />
-                  </div>
-
-                  {/* Role Selection */}
-                  <div>
-                    <h4 className="text-sm font-medium text-black mb-3">
-                      Choose your role
-                    </h4>
-                    <div className="flex gap-1 bg-[#FFFFFF] border border-[#E0E0E0] p-1 rounded-full">
-                      {["Rent", "Buy", "Sell"].map((role) => (
-                        <button
-                          key={role}
-                          onClick={() => setSelectedRole(role.toLowerCase())}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex-1 ${
-                            selectedRole === role.toLowerCase()
-                              ? "bg-[#4C68EB08] text-[#5271FF] shadow-sm"
-                              : "bg-transparent text-gray-600 hover:text-gray-800"
-                          }`}
-                          style={
-                            selectedRole === role.toLowerCase()
-                              ? { border: "1px solid #5271FF" }
-                              : {}
-                          }
-                        >
-                          {role}
-                        </button>
-                      ))}
+            <AnimatePresence>
+              {showFilterDropdown && (
+                <motion.div
+                  className="absolute top-12 left-0 bg-white rounded-2xl shadow-lg p-6 w-80 z-10 border"
+                  variants={filterDropdownVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <div className="space-y-6">
+                    {/* Header */}
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-black">
+                        Filter
+                      </h3>
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <X
+                          size={20}
+                          className="cursor-pointer text-gray-500"
+                          onClick={() => setShowFilterDropdown(false)}
+                        />
+                      </motion.div>
                     </div>
-                  </div>
 
-                  {/* Price Range */}
-                  <div>
-                    <h4 className="text-sm font-medium text-black mb-3">
-                      Price Range
-                    </h4>
-                    <div className="space-y-4">
-                      {/* Custom Dual Range Slider */}
-                      <div className="dual-range-slider">
-                        <div
-                          className="slider-track"
-                          style={{
-                            left: `${(priceRange[0] / 300) * 100}%`,
-                            right: `${100 - (priceRange[1] / 300) * 100}%`,
-                          }}
-                        />
-                        <input
-                          type="range"
-                          min="0"
-                          max="300"
-                          value={priceRange[0]}
-                          onChange={(e) =>
-                            handleMinPriceChange(Number(e.target.value))
-                          }
-                        />
-                        <input
-                          type="range"
-                          min="0"
-                          max="300"
-                          value={priceRange[1]}
-                          onChange={(e) =>
-                            handleMaxPriceChange(Number(e.target.value))
-                          }
-                        />
-                      </div>
-
-                      {/* Price Display */}
-                      <div className="flex justify-between text-xs text-gray-500 mt-4">
-                        <span>$0</span>
-                        <div className="flex gap-2">
-                          <span className="font-medium text-black">
-                            ${priceRange[0]} - ${priceRange[1]}
-                          </span>
-                        </div>
-                        <span>$300</span>
+                    {/* Role Selection */}
+                    <div>
+                      <h4 className="text-sm font-medium text-black mb-3">
+                        Choose your role
+                      </h4>
+                      <div className="flex gap-1 bg-[#FFFFFF] border border-[#E0E0E0] p-1 rounded-full">
+                        {["Rent", "Buy", "Sell"].map((role) => (
+                          <motion.button
+                            key={role}
+                            onClick={() => setSelectedRole(role.toLowerCase())}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex-1 ${
+                              selectedRole === role.toLowerCase()
+                                ? "bg-[#4C68EB08] text-[#5271FF] shadow-sm"
+                                : "bg-transparent text-gray-600 hover:text-gray-800"
+                            }`}
+                            style={
+                              selectedRole === role.toLowerCase()
+                                ? { border: "1px solid #5271FF" }
+                                : {}
+                            }
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            {role}
+                          </motion.button>
+                        ))}
                       </div>
                     </div>
-                  </div>
 
-                  {/* Amenities */}
-                  <div>
-                    <h4 className="text-sm font-medium text-black mb-3">
-                      Amenities
-                    </h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[
-                        "Parking",
-                        "Air Condition",
-                        "TV",
-                        "Kitchen",
-                        "WiFi",
-                      ].map((amenity) => (
-                        <label
-                          key={amenity}
-                          className="flex items-center gap-2 cursor-pointer"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={amenities.includes(amenity)}
-                            onChange={() => toggleAmenity(amenity)}
-                            className="w-4 h-4 text-[#4262FF] bg-gray-100 border-gray-300 rounded focus:ring-[#4262FF] focus:ring-2"
+                    {/* Price Range */}
+                    <div>
+                      <h4 className="text-sm font-medium text-black mb-3">
+                        Price Range
+                      </h4>
+                      <div className="space-y-4">
+                        <div className="dual-range-slider">
+                          <div
+                            className="slider-track"
+                            style={{
+                              left: `${(priceRange[0] / 300) * 100}%`,
+                              right: `${100 - (priceRange[1] / 300) * 100}%`,
+                            }}
                           />
-                          <span className="text-sm text-gray-700">
-                            {amenity}
-                          </span>
-                        </label>
-                      ))}
+                          <input
+                            type="range"
+                            min="0"
+                            max="300"
+                            value={priceRange[0]}
+                            onChange={(e) =>
+                              handleMinPriceChange(Number(e.target.value))
+                            }
+                          />
+                          <input
+                            type="range"
+                            min="0"
+                            max="300"
+                            value={priceRange[1]}
+                            onChange={(e) =>
+                              handleMaxPriceChange(Number(e.target.value))
+                            }
+                          />
+                        </div>
+                        <div className="flex justify-between text-xs text-gray-500 mt-4">
+                          <span>$0</span>
+                          <div className="flex gap-2">
+                            <span className="font-medium text-black">
+                              ${priceRange[0]} - ${priceRange[1]}
+                            </span>
+                          </div>
+                          <span>$300</span>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Amenities */}
+                    <div>
+                      <h4 className="text-sm font-medium text-black mb-3">
+                        Amenities
+                      </h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          "Parking",
+                          "Air Condition",
+                          "TV",
+                          "Kitchen",
+                          "WiFi",
+                        ].map((amenity) => (
+                          <motion.label
+                            key={amenity}
+                            className="flex items-center gap-2 cursor-pointer"
+                            whileHover={{ scale: 1.02 }}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={amenities.includes(amenity)}
+                              onChange={() => toggleAmenity(amenity)}
+                              className="w-4 h-4 text-[#4262FF] bg-gray-100 border-gray-300 rounded focus:ring-[#4262FF] focus:ring-2"
+                            />
+                            <span className="text-sm text-gray-700">
+                              {amenity}
+                            </span>
+                          </motion.label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Apply Button */}
+                    <motion.button
+                      className="w-full bg-[#4262FF] text-white text-sm font-medium py-3 rounded-lg hover:bg-[#3651e6] transition-colors"
+                      onClick={() => setShowFilterDropdown(false)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Apply Filters
+                    </motion.button>
                   </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-                  {/* Apply Button */}
-                  <button
-                    className="w-full bg-[#4262FF] text-white text-sm font-medium py-3 rounded-lg hover:bg-[#3651e6] transition-colors"
-                    onClick={() => setShowFilterDropdown(false)}
+            <AnimatePresence>
+              {activeFilters.map((filter) => (
+                <motion.div
+                  key={filter}
+                  className="flex items-center gap-1 px-3 py-1.5 border border-gray-300 rounded-full bg-white text-sm font-medium text-black flex-shrink-0"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.2 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {getAmenityIcon(filter)}
+                  {filter}
+                  <motion.div
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.8 }}
                   >
-                    Apply Filters
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {activeFilters.map((filter, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-1 px-3 py-1.5 border border-gray-300 rounded-full bg-white text-sm font-medium text-black flex-shrink-0"
-              >
-                {getAmenityIcon(filter)}
-                {filter}
-                <X
-                  size={14}
-                  className="cursor-pointer"
-                  onClick={() => removeFilter(filter)}
-                />
-              </div>
-            ))}
+                    <X
+                      size={14}
+                      className="cursor-pointer"
+                      onClick={() => removeFilter(filter)}
+                    />
+                  </motion.div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
 
           <div className="text-sm text-black flex-shrink-0">
@@ -545,56 +646,94 @@ function BrowsePageContent() {
             </span>{" "}
             <ChevronDown size={14} className="inline-block ml-1" />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row w-full gap-6">
+      <motion.div
+        className="flex flex-col lg:flex-row w-full gap-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+      >
         {/* Left: Cards */}
         <div className="w-full lg:w-[60%]">
           {/* Results Summary */}
-          <div className="flex items-center justify-between mb-6">
+          <motion.div
+            className="flex items-center justify-between mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
+          >
             <div className="text-gray-400 text-sm">
               {filteredProperties.length > 0
                 ? `Found ${filteredProperties.length} properties`
                 : "No properties found"}
             </div>
-          </div>
+          </motion.div>
 
           {/* Cards Grid - Responsive */}
           {currentItems.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {currentItems.map((property) => (
-                <PropertyCard
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}
+            >
+              {currentItems.map((property, index) => (
+                <motion.div
                   key={property.id}
-                  {...property}
-                  id={property.id.toString()}
-                />
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeOut",
+                    delay: 0.5 + index * 0.1,
+                  }}
+                  whileHover={{
+                    scale: 1.02,
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  <PropertyCard {...property} id={property.id.toString()} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           ) : (
-            <div className="text-center py-12">
+            <motion.div
+              className="text-center py-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}
+            >
               <p className="text-gray-500">
                 No properties match your search criteria.
               </p>
               <p className="text-sm text-gray-400 mt-2">
                 Try adjusting your filters.
               </p>
-            </div>
+            </motion.div>
           )}
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center lg:justify-start items-center gap-2 mt-6">
-              <button
+            <motion.div
+              className="flex justify-center lg:justify-start items-center gap-2 mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.6 }}
+            >
+              <motion.button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
                 className="disabled:opacity-50 bg-gray-200 p-2 rounded"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <ChevronLeft size={16} />
-              </button>
+              </motion.button>
               {Array.from({ length: totalPages }).map((_, i) => (
-                <button
+                <motion.button
                   key={i}
                   onClick={() => setCurrentPage(i + 1)}
                   className={`w-8 h-8 text-sm rounded-full ${
@@ -602,26 +741,35 @@ function BrowsePageContent() {
                       ? "bg-[#5271FF] text-white"
                       : "bg-gray-100"
                   }`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   {i + 1}
-                </button>
+                </motion.button>
               ))}
-              <button
+              <motion.button
                 onClick={() =>
                   setCurrentPage((p) => Math.min(totalPages, p + 1))
                 }
                 disabled={currentPage === totalPages}
                 className="disabled:opacity-50 bg-gray-200 p-2 rounded"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <ChevronRight size={16} />
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           )}
         </div>
 
         {/* Right: Map */}
-        <div className="w-full lg:w-[40%]">
-          <div
+        <motion.div
+          className="w-full lg:w-[40%]"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
+        >
+          <motion.div
             className="rounded-2xl shadow overflow-hidden flex items-center justify-center"
             style={{
               width: "100%",
@@ -629,6 +777,8 @@ function BrowsePageContent() {
               flexShrink: 0,
               position: "relative",
             }}
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
           >
             <Image
               src="/assets/map2.png"
@@ -637,10 +787,10 @@ function BrowsePageContent() {
               className="object-cover"
               priority
             />
-          </div>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
 
