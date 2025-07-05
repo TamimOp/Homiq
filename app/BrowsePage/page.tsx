@@ -41,7 +41,7 @@ function BrowsePageContent() {
 
   // Filter dropdown state
   const [selectedRole, setSelectedRole] = useState("rent");
-  const [priceRange, setPriceRange] = useState(30);
+  const [priceRange, setPriceRange] = useState([0, 300]); // Start from 0
   const [amenities, setAmenities] = useState(["Parking"]);
 
   // Check for mobile screen
@@ -146,8 +146,83 @@ function BrowsePageContent() {
     }
   };
 
+  // Handle dual range slider
+  const handleMinPriceChange = (value: number) => {
+    const newValue = Math.min(value, priceRange[1]);
+    setPriceRange([newValue, priceRange[1]]);
+  };
+
+  const handleMaxPriceChange = (value: number) => {
+    const newValue = Math.max(value, priceRange[0]);
+    setPriceRange([priceRange[0], newValue]);
+  };
+
   return (
     <div className="w-full min-h-screen bg-[#f9fafe] px-3 sm:px-6 py-4">
+      {/* Custom CSS for range sliders */}
+      <style jsx global>{`
+        .dual-range-slider {
+          position: relative;
+          width: 100%;
+          height: 6px;
+          background: #e5e7eb;
+          border-radius: 3px;
+          margin: 15px 0;
+        }
+
+        .dual-range-slider .slider-track {
+          position: absolute;
+          height: 6px;
+          background: #4c68eb;
+          border-radius: 3px;
+          box-shadow: 0px 0px 9.8px 0px #5271ff;
+        }
+
+        .dual-range-slider input[type="range"] {
+          position: absolute;
+          width: 100%;
+          height: 6px;
+          background: transparent;
+          appearance: none;
+          pointer-events: none;
+          top: 0;
+          left: 0;
+        }
+
+        .dual-range-slider input[type="range"]::-webkit-slider-thumb {
+          appearance: none;
+          pointer-events: all;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #4c68eb;
+          box-shadow: 0px 0px 9.8px 0px #5271ff;
+          cursor: pointer;
+          border: none;
+          position: relative;
+          z-index: 3;
+        }
+
+        .dual-range-slider input[type="range"]::-moz-range-thumb {
+          pointer-events: all;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #4c68eb;
+          box-shadow: 0px 0px 9.8px 0px #5271ff;
+          cursor: pointer;
+          border: none;
+        }
+
+        .dual-range-slider input[type="range"]::-webkit-slider-track {
+          background: transparent;
+        }
+
+        .dual-range-slider input[type="range"]::-moz-range-track {
+          background: transparent;
+        }
+      `}</style>
+
       {/* Top Centered Search Bar */}
       <div className="mb-6 mx-auto max-w-4xl w-full">
         <div className="bg-white rounded-2xl shadow-md p-4 sm:px-6 sm:py-4">
@@ -335,16 +410,21 @@ function BrowsePageContent() {
                     <h4 className="text-sm font-medium text-black mb-3">
                       Choose your role
                     </h4>
-                    <div className="flex gap-2">
-                      {["rent", "buy", "sell"].map((role) => (
+                    <div className="flex gap-1 bg-gray-100 p-1 rounded-full">
+                      {["Rent", "Buy", "Sell"].map((role) => (
                         <button
                           key={role}
-                          onClick={() => setSelectedRole(role)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium capitalize transition-all ${
-                            selectedRole === role
-                              ? "bg-[#4262FF] text-white"
-                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          onClick={() => setSelectedRole(role.toLowerCase())}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex-1 ${
+                            selectedRole === role.toLowerCase()
+                              ? "bg-[#4C68EB08] text-[#5271FF] shadow-sm"
+                              : "bg-transparent text-gray-600 hover:text-gray-800"
                           }`}
+                          style={
+                            selectedRole === role.toLowerCase()
+                              ? { border: "1px solid #5271FF" }
+                              : {}
+                          }
                         >
                           {role}
                         </button>
@@ -357,27 +437,44 @@ function BrowsePageContent() {
                     <h4 className="text-sm font-medium text-black mb-3">
                       Price Range
                     </h4>
-                    <div className="space-y-2">
-                      <input
-                        type="range"
-                        min="30"
-                        max="300"
-                        value={priceRange}
-                        onChange={(e) => setPriceRange(Number(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        style={{
-                          background: `linear-gradient(to right, #4262FF 0%, #4262FF ${
-                            ((priceRange - 30) / 270) * 100
-                          }%, #e5e7eb ${
-                            ((priceRange - 30) / 270) * 100
-                          }%, #e5e7eb 100%)`,
-                        }}
-                      />
-                      <div className="flex justify-between text-xs text-gray-500">
-                        <span>$30</span>
-                        <span className="font-medium text-black">
-                          ${priceRange}
-                        </span>
+                    <div className="space-y-4">
+                      {/* Custom Dual Range Slider */}
+                      <div className="dual-range-slider">
+                        <div
+                          className="slider-track"
+                          style={{
+                            left: `${(priceRange[0] / 300) * 100}%`,
+                            right: `${100 - (priceRange[1] / 300) * 100}%`,
+                          }}
+                        />
+                        <input
+                          type="range"
+                          min="0"
+                          max="300"
+                          value={priceRange[0]}
+                          onChange={(e) =>
+                            handleMinPriceChange(Number(e.target.value))
+                          }
+                        />
+                        <input
+                          type="range"
+                          min="0"
+                          max="300"
+                          value={priceRange[1]}
+                          onChange={(e) =>
+                            handleMaxPriceChange(Number(e.target.value))
+                          }
+                        />
+                      </div>
+
+                      {/* Price Display */}
+                      <div className="flex justify-between text-xs text-gray-500 mt-4">
+                        <span>$0</span>
+                        <div className="flex gap-2">
+                          <span className="font-medium text-black">
+                            ${priceRange[0]} - ${priceRange[1]}
+                          </span>
+                        </div>
                         <span>$300</span>
                       </div>
                     </div>
@@ -522,7 +619,7 @@ function BrowsePageContent() {
           )}
         </div>
 
-        {/* Right: Map - Back to original style */}
+        {/* Right: Map */}
         <div className="w-full lg:w-[40%]">
           <div
             className="rounded-2xl shadow overflow-hidden flex items-center justify-center"
