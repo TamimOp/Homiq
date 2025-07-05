@@ -3,14 +3,54 @@
 import { useState } from "react";
 import { CalendarDays, Users, Info, Plus, Minus } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
-export default function BookingSection() {
+interface BookingSectionProps {
+  propertyId?: string;
+}
+
+export default function BookingSection({
+  propertyId = "1",
+}: BookingSectionProps) {
   const [guests, setGuests] = useState(1);
+  const [checkInDate] = useState("31.12.2021");
+  const [checkOutDate] = useState("31.02.2022");
+  const router = useRouter();
+
+  // Pricing data
+  const monthlyRent = 2990.0;
+  const utilities = 250.7;
+  const monthlySubtotal = monthlyRent + utilities;
+  const cleaningFee = 225.0;
+  const totalCharges = monthlySubtotal + cleaningFee;
+
+  const handleContinueBooking = () => {
+    const bookingData = {
+      monthlyRent,
+      utilities,
+      monthlySubtotal,
+      cleaningFee,
+      totalCharges,
+      checkInDate,
+      checkOutDate,
+      guests,
+    };
+
+    // Store booking data in localStorage to pass to next page
+    localStorage.setItem("bookingData", JSON.stringify(bookingData));
+    router.push(`/booking/${propertyId}`);
+  };
 
   return (
     <div className="flex flex-col xl:flex-row justify-between items-start gap-10 py-12 min-h-screen px-4 sm:px-6 lg:px-8">
       {/* LEFT: Details */}
-      <div className="w-full xl:w-1/2 space-y-6 sm:space-y-8 lg:space-y-10">
+      <motion.div
+        className="w-full xl:w-1/2 space-y-6 sm:space-y-8 lg:space-y-10"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div>
           <h1 className="text-3xl sm:text-4xl lg:text-[52px] font-semibold">
             Rhoncus suspendisse
@@ -80,10 +120,10 @@ export default function BookingSection() {
             Mollis enim fringilla aenean diam tellus diam morbi ipsum placerat.
           </p>
         </div>
-      </div>
+      </motion.div>
 
       {/* RIGHT: Booking Card */}
-      <div
+      <motion.div
         className="w-full max-w-[470px] xl:w-[470px] bg-white text-sm flex flex-col mx-auto xl:mx-0"
         style={{
           display: "flex",
@@ -95,9 +135,12 @@ export default function BookingSection() {
           background: "#FFF",
           boxShadow: "6px 6px 25px 1px rgba(0, 0, 0, 0.26)",
         }}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
       >
         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold w-full text-center mb-6">
-          £3990 / Month
+          £{monthlySubtotal.toFixed(0)} / Month
         </h3>
 
         {/* Dates */}
@@ -108,7 +151,7 @@ export default function BookingSection() {
             </p>
             <div className="flex items-center gap-2">
               <CalendarDays size={16} className="text-black" />
-              <span>31.12.2021</span>
+              <span>{checkInDate}</span>
             </div>
           </div>
           <div>
@@ -117,7 +160,7 @@ export default function BookingSection() {
             </p>
             <div className="flex items-center gap-2">
               <CalendarDays size={16} className="text-black" />
-              <span>31.02.2022</span>
+              <span>{checkOutDate}</span>
             </div>
           </div>
         </div>
@@ -126,17 +169,21 @@ export default function BookingSection() {
         <div className="flex items-center gap-2 w-full">
           <Users size={16} />
           <span className="text-base sm:text-lg font-bold">Guests</span>
-          <Plus
-            size={16}
-            onClick={() => setGuests((g) => g + 1)}
-            className="cursor-pointer"
-          />
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Plus
+              size={16}
+              onClick={() => setGuests((g) => g + 1)}
+              className="cursor-pointer"
+            />
+          </motion.div>
           <span className="font-medium">{guests}</span>
-          <Minus
-            size={16}
-            onClick={() => setGuests((g) => Math.max(1, g - 1))}
-            className="cursor-pointer"
-          />
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Minus
+              size={16}
+              onClick={() => setGuests((g) => Math.max(1, g - 1))}
+              className="cursor-pointer"
+            />
+          </motion.div>
         </div>
 
         <div className="w-full">
@@ -148,9 +195,9 @@ export default function BookingSection() {
         {/* Cost Breakdown */}
         <div className="space-y-2 text-black w-full">
           <div className="flex justify-between items-center">
-            <span className="text-base sm:text-lg">Average monthy rent</span>
+            <span className="text-base sm:text-lg">Average monthly rent</span>
             <span className="text-right text-base sm:text-lg">
-              £3700
+              £{monthlyRent.toFixed(0)}
               <br />
               <span className="text-sm text-gray-500">incl. VAT</span>
             </span>
@@ -161,7 +208,7 @@ export default function BookingSection() {
               Pay upon booking <Info size={14} className="text-black" />
             </span>
             <span className="text-right text-base sm:text-lg font-medium">
-              £3989.23
+              £{totalCharges.toFixed(2)}
               <br />
               <span className="text-sm text-gray-500">incl. VAT</span>
             </span>
@@ -172,7 +219,7 @@ export default function BookingSection() {
               Total costs <Info size={14} className="text-black" />
             </span>
             <span className="text-right text-base sm:text-lg">
-              £4001.70
+              £{totalCharges.toFixed(2)}
               <br />
               <span className="text-sm text-gray-500">incl. VAT</span>
             </span>
@@ -183,16 +230,21 @@ export default function BookingSection() {
 
         {/* CTA */}
         <div className="w-full flex justify-center">
-          <button className="px-6 sm:px-8 py-3 bg-[#4262FF] text-white font-medium rounded-full text-base sm:text-lg hover:bg-[#2e4bdd] transition w-full sm:w-auto">
+          <motion.button
+            className="px-6 sm:px-8 py-3 bg-[#4262FF] text-white font-medium rounded-full text-base sm:text-lg hover:bg-[#2e4bdd] transition w-full sm:w-auto"
+            onClick={handleContinueBooking}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             Continue booking
-          </button>
+          </motion.button>
         </div>
 
         <p className="text-center text-sm text-[#181A18] w-full">
-          When you book this apartment, your reservation will be cofirmed
+          When you book this apartment, your reservation will be confirmed
           instantly
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }
