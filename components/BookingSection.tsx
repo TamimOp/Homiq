@@ -103,14 +103,18 @@ export default function BookingSection() {
         {/* Dates */}
         <div className="flex flex-col sm:flex-row justify-between w-full gap-4 sm:gap-0">
           <div>
-            <p className="text-base sm:text-lg text-black mb-1">CHECK-IN</p>
+            <p className="text-base sm:text-lg font-bold text-black mb-1">
+              CHECK-IN
+            </p>
             <div className="flex items-center gap-2">
               <CalendarDays size={16} className="text-black" />
               <span>31.12.2021</span>
             </div>
           </div>
           <div>
-            <p className="text-base sm:text-lg text-black mb-1">CHECK-OUT</p>
+            <p className="text-base sm:text-lg font-bold text-black mb-1">
+              CHECK-OUT
+            </p>
             <div className="flex items-center gap-2">
               <CalendarDays size={16} className="text-black" />
               <span>31.02.2022</span>
@@ -121,7 +125,7 @@ export default function BookingSection() {
         {/* Guests */}
         <div className="flex items-center gap-2 w-full">
           <Users size={16} />
-          <span className="text-base sm:text-lg">Guests</span>
+          <span className="text-base sm:text-lg font-bold">Guests</span>
           <Plus
             size={16}
             onClick={() => setGuests((g) => g + 1)}
@@ -170,11 +174,11 @@ export default function BookingSection() {
             <span className="text-right text-base sm:text-lg">
               £4001.70
               <br />
-              <span className="text-xs text-gray-500">incl. VAT</span>
+              <span className="text-sm text-gray-500">incl. VAT</span>
             </span>
           </div>
 
-          <p className="text-blue-600 text-xs cursor-pointer mt-1">Show more</p>
+          <p className="text-blue-600 text-sm cursor-pointer mt-1">Show more</p>
         </div>
 
         {/* CTA */}
