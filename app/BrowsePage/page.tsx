@@ -158,7 +158,7 @@ function BrowsePageContent() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#f9fafe] px-3 sm:px-6 py-4">
+    <div className="w-full min-h-screen bg-[#f9fafe] px-3 sm:px-8 py-4">
       {/* Custom CSS for range sliders */}
       <style jsx global>{`
         .dual-range-slider {
