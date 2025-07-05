@@ -12,6 +12,10 @@ import {
   Minus,
   X,
   CarFront,
+  AirVent,
+  Tv,
+  ChefHat,
+  Wifi,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -21,6 +25,7 @@ function BrowsePageContent() {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
 
   // Search filters state
   const [filters, setFilters] = useState({
@@ -33,6 +38,11 @@ function BrowsePageContent() {
   // Additional state for SearchBar features
   const [guests, setGuests] = useState(1);
   const [activeFilters, setActiveFilters] = useState(["Parking"]);
+
+  // Filter dropdown state
+  const [selectedRole, setSelectedRole] = useState("rent");
+  const [priceRange, setPriceRange] = useState(30);
+  const [amenities, setAmenities] = useState(["Parking"]);
 
   // Check for mobile screen
   useEffect(() => {
@@ -104,12 +114,42 @@ function BrowsePageContent() {
 
   const removeFilter = (filterToRemove: string) => {
     setActiveFilters((prev) => prev.filter((f) => f !== filterToRemove));
+    setAmenities((prev) => prev.filter((f) => f !== filterToRemove));
+  };
+
+  const toggleAmenity = (amenity: string) => {
+    setAmenities((prev) => {
+      const newAmenities = prev.includes(amenity)
+        ? prev.filter((a) => a !== amenity)
+        : [...prev, amenity];
+
+      // Update active filters
+      setActiveFilters(newAmenities);
+      return newAmenities;
+    });
+  };
+
+  const getAmenityIcon = (amenity: string) => {
+    switch (amenity.toLowerCase()) {
+      case "parking":
+        return <CarFront size={16} />;
+      case "air condition":
+        return <AirVent size={16} />;
+      case "tv":
+        return <Tv size={16} />;
+      case "kitchen":
+        return <ChefHat size={16} />;
+      case "wifi":
+        return <Wifi size={16} />;
+      default:
+        return <CarFront size={16} />;
+    }
   };
 
   return (
     <div className="w-full min-h-screen bg-[#f9fafe] px-3 sm:px-6 py-4">
       {/* Top Centered Search Bar */}
-      <div className="mb-6 mx-auto max-w-6xl w-full">
+      <div className="mb-6 mx-auto max-w-4xl w-full">
         <div className="bg-white rounded-2xl shadow-md p-4 sm:px-6 sm:py-4">
           {/* Mobile/Tablet Search Bar */}
           {isMobile ? (
@@ -183,61 +223,64 @@ function BrowsePageContent() {
             </div>
           ) : (
             /* Desktop Search Bar */
-            <div className="flex items-center gap-4 lg:gap-8">
-              <div className="flex-shrink-0">
-                <p className="text-xs text-gray-400">Location</p>
-                <input
-                  type="text"
-                  value={filters.location}
-                  onChange={(e) =>
-                    handleFilterChange("location", e.target.value)
-                  }
-                  placeholder="Enter location"
-                  className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-28 lg:w-32"
-                />
-              </div>
-              <div className="w-[1px] h-8 bg-gray-200 flex-shrink-0" />
-              <div className="flex-shrink-0">
-                <p className="text-xs text-gray-400">Looking For</p>
-                <input
-                  type="text"
-                  value={filters.lookingFor}
-                  onChange={(e) =>
-                    handleFilterChange("lookingFor", e.target.value)
-                  }
-                  placeholder="Property type"
-                  className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-28 lg:w-32"
-                />
-              </div>
-              <div className="w-[1px] h-8 bg-gray-200 flex-shrink-0" />
-              <div className="flex-shrink-0">
-                <p className="text-xs text-gray-400">Price</p>
-                <input
-                  type="text"
-                  value={filters.price}
-                  onChange={(e) => handleFilterChange("price", e.target.value)}
-                  placeholder="Budget"
-                  className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-20 lg:w-24"
-                />
-              </div>
-              <div className="w-[1px] h-8 bg-gray-200 flex-shrink-0" />
-              <div className="flex-shrink-0">
-                <p className="text-xs text-gray-400">Rooms</p>
-                <div className="flex items-center gap-3 text-black">
-                  <Plus
-                    size={16}
-                    className="cursor-pointer"
-                    onClick={() => setGuests((prev) => prev + 1)}
-                  />
-                  <span className="font-medium">{guests}</span>
-                  <Minus
-                    size={16}
-                    className="cursor-pointer"
-                    onClick={() => setGuests((prev) => Math.max(1, prev - 1))}
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4 lg:gap-6">
+                <div className="flex-shrink-0">
+                  <p className="text-xs text-gray-400">Location</p>
+                  <input
+                    type="text"
+                    value={filters.location}
+                    onChange={(e) =>
+                      handleFilterChange("location", e.target.value)
+                    }
+                    placeholder="Enter location"
+                    className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-24 lg:w-28"
                   />
                 </div>
+                <div className="w-[1px] h-8 bg-gray-200 flex-shrink-0" />
+                <div className="flex-shrink-0">
+                  <p className="text-xs text-gray-400">Looking For</p>
+                  <input
+                    type="text"
+                    value={filters.lookingFor}
+                    onChange={(e) =>
+                      handleFilterChange("lookingFor", e.target.value)
+                    }
+                    placeholder="Property type"
+                    className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-24 lg:w-28"
+                  />
+                </div>
+                <div className="w-[1px] h-8 bg-gray-200 flex-shrink-0" />
+                <div className="flex-shrink-0">
+                  <p className="text-xs text-gray-400">Price</p>
+                  <input
+                    type="text"
+                    value={filters.price}
+                    onChange={(e) =>
+                      handleFilterChange("price", e.target.value)
+                    }
+                    placeholder="Budget"
+                    className="text-base font-medium text-black bg-transparent outline-none border-none p-0 w-16 lg:w-20"
+                  />
+                </div>
+                <div className="w-[1px] h-8 bg-gray-200 flex-shrink-0" />
+                <div className="flex-shrink-0">
+                  <p className="text-xs text-gray-400">Rooms</p>
+                  <div className="flex items-center gap-3 text-black">
+                    <Plus
+                      size={16}
+                      className="cursor-pointer"
+                      onClick={() => setGuests((prev) => prev + 1)}
+                    />
+                    <span className="font-medium">{guests}</span>
+                    <Minus
+                      size={16}
+                      className="cursor-pointer"
+                      onClick={() => setGuests((prev) => Math.max(1, prev - 1))}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="w-[1px] h-8 bg-gray-200 flex-shrink-0" />
               <div className="flex items-center flex-shrink-0">
                 <button
                   className="text-sm font-semibold px-3 lg:px-4 py-2 whitespace-nowrap flex items-center justify-center"
@@ -264,18 +307,130 @@ function BrowsePageContent() {
         </div>
 
         {/* Filters and Sort */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3 gap-3">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3 gap-3 relative">
           <div className="flex items-center gap-4 overflow-x-auto w-full sm:w-auto">
-            <button className="bg-[#4262FF] text-white text-sm font-medium px-4 py-2 rounded-full flex items-center gap-1 flex-shrink-0">
+            <button
+              className="bg-[#4262FF] text-white text-sm font-medium px-4 py-2 rounded-full flex items-center gap-1 flex-shrink-0"
+              onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+            >
               More filters <ChevronDown size={14} />
             </button>
+
+            {/* Filter Dropdown */}
+            {showFilterDropdown && (
+              <div className="absolute top-12 left-0 bg-white rounded-2xl shadow-lg p-6 w-80 z-10 border">
+                <div className="space-y-6">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-black">Filter</h3>
+                    <X
+                      size={20}
+                      className="cursor-pointer text-gray-500"
+                      onClick={() => setShowFilterDropdown(false)}
+                    />
+                  </div>
+
+                  {/* Role Selection */}
+                  <div>
+                    <h4 className="text-sm font-medium text-black mb-3">
+                      Choose your role
+                    </h4>
+                    <div className="flex gap-2">
+                      {["rent", "buy", "sell"].map((role) => (
+                        <button
+                          key={role}
+                          onClick={() => setSelectedRole(role)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium capitalize transition-all ${
+                            selectedRole === role
+                              ? "bg-[#4262FF] text-white"
+                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          }`}
+                        >
+                          {role}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Price Range */}
+                  <div>
+                    <h4 className="text-sm font-medium text-black mb-3">
+                      Price Range
+                    </h4>
+                    <div className="space-y-2">
+                      <input
+                        type="range"
+                        min="30"
+                        max="300"
+                        value={priceRange}
+                        onChange={(e) => setPriceRange(Number(e.target.value))}
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        style={{
+                          background: `linear-gradient(to right, #4262FF 0%, #4262FF ${
+                            ((priceRange - 30) / 270) * 100
+                          }%, #e5e7eb ${
+                            ((priceRange - 30) / 270) * 100
+                          }%, #e5e7eb 100%)`,
+                        }}
+                      />
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>$30</span>
+                        <span className="font-medium text-black">
+                          ${priceRange}
+                        </span>
+                        <span>$300</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Amenities */}
+                  <div>
+                    <h4 className="text-sm font-medium text-black mb-3">
+                      Amenities
+                    </h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        "Parking",
+                        "Air Condition",
+                        "TV",
+                        "Kitchen",
+                        "WiFi",
+                      ].map((amenity) => (
+                        <label
+                          key={amenity}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={amenities.includes(amenity)}
+                            onChange={() => toggleAmenity(amenity)}
+                            className="w-4 h-4 text-[#4262FF] bg-gray-100 border-gray-300 rounded focus:ring-[#4262FF] focus:ring-2"
+                          />
+                          <span className="text-sm text-gray-700">
+                            {amenity}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Apply Button */}
+                  <button
+                    className="w-full bg-[#4262FF] text-white text-sm font-medium py-3 rounded-lg hover:bg-[#3651e6] transition-colors"
+                    onClick={() => setShowFilterDropdown(false)}
+                  >
+                    Apply Filters
+                  </button>
+                </div>
+              </div>
+            )}
 
             {activeFilters.map((filter, idx) => (
               <div
                 key={idx}
                 className="flex items-center gap-1 px-3 py-1.5 border border-gray-300 rounded-full bg-white text-sm font-medium text-black flex-shrink-0"
               >
-                <CarFront size={16} />
+                {getAmenityIcon(filter)}
                 {filter}
                 <X
                   size={14}
