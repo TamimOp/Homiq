@@ -410,7 +410,7 @@ function BrowsePageContent() {
                     <h4 className="text-sm font-medium text-black mb-3">
                       Choose your role
                     </h4>
-                    <div className="flex gap-1 bg-gray-100 p-1 rounded-full">
+                    <div className="flex gap-1 bg-[#FFFFFF] border border-[#E0E0E0] p-1 rounded-full">
                       {["Rent", "Buy", "Sell"].map((role) => (
                         <button
                           key={role}
