@@ -679,31 +679,29 @@ export default function BookingReview() {
           className="flex-1 max-w-2xl space-y-8"
           variants={sectionVariants}
         >
-          <h2 className="text-4xl font-semibold text-gray-900">
+          <h2 className="text-[52px] font-semibold text-gray-900">
             Booking review
           </h2>
 
           <div className="space-y-5">
             {/* Charges */}
-            <div className="flex justify-between items-center text-base">
-              <span className="text-gray-700">Rent per month</span>
-              <span className="font-medium text-gray-900">
+            <div className="flex justify-between items-center text-lg">
+              <span className="text-[#181A18] font-bold">Rent per month</span>
+              <span className="font-bold text-gray-900">
                 £{bookingData.monthlyRent.toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between items-center text-base">
-              <span className="flex items-center gap-1 text-gray-700">
+            <div className="flex justify-between items-center text-lg">
+              <span className="flex items-center gap-1 text-[#181A18]">
                 Utilities per month <Info size={14} className="text-gray-400" />
               </span>
-              <span className="font-medium text-gray-900">
+              <span className="font-normal text-gray-900">
                 £{bookingData.utilities.toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between items-center text-base pt-2 border-t border-gray-300">
-              <span className="font-semibold text-gray-900">
-                Monthly subtotal
-              </span>
-              <span className="font-semibold text-gray-900">
+            <div className="flex justify-between items-center text-lg pt-2 border-t border-gray-300">
+              <span className="font-bold text-gray-900">Monthly subtotal</span>
+              <span className="font-bold text-gray-900">
                 £{bookingData.monthlySubtotal.toFixed(2)}
               </span>
             </div>
@@ -717,12 +715,12 @@ export default function BookingReview() {
               </span>
             </div>
             <div className="flex justify-between items-center text-base pt-2 border-t border-gray-300">
-              <span className="font-semibold text-gray-900">Total charges</span>
-              <span className="font-semibold text-gray-900">
+              <span className="font-bold text-gray-900">Total charges</span>
+              <span className="font-bold text-gray-900">
                 £{bookingData.totalCharges.toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between items-center text-xl font-bold pt-4 border-t-2 border-gray-400">
+            <div className="flex justify-between items-center text-2xl font-bold pt-4 border-t-2 border-gray-400">
               <span className="text-gray-900">Total</span>
               <span className="text-gray-900">£4225.00</span>
             </div>
@@ -731,7 +729,7 @@ export default function BookingReview() {
           {/* Confirm button */}
           <div className="pt-4 flex flex-col items-center">
             <motion.button
-              className="bg-[#4262FF] hover:bg-[#304de0] transition px-8 py-4 rounded-full text-white font-medium text-lg"
+              className="bg-[#4262FF] hover:bg-[#304de0] transition px-8 py-3 rounded-full text-white font-medium text-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
