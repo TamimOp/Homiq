@@ -554,13 +554,16 @@ function BrowsePageContent() {
                           />
                         </div>
                         <div className="flex justify-between text-xs text-gray-500 mt-4">
-                          <span>$0</span>
-                          <div className="flex gap-2">
+                          <div className="flex flex-col items-start">
                             <span className="font-medium text-black">
-                              ${priceRange[0]} - ${priceRange[1]}
+                              ${priceRange[0]}
                             </span>
                           </div>
-                          <span>$300</span>
+                          <div className="flex flex-col items-end">
+                            <span className="font-medium text-black">
+                              ${priceRange[1]}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
