@@ -803,10 +803,13 @@ export default function BookingReview() {
             {/* Timeline */}
             <div className="flex-1">
               <h3 className="font-semibold mb-4 text-base">Payment timeline</h3>
-              <div className="space-y-6 border-l-2 border-gray-300 pl-6 relative">
+              <div className="space-y-6 relative">
+                {/* Vertical line connecting the dots */}
+                <div className="absolute left-[6px] top-[10px] w-0.5 h-[70px] bg-gray-300"></div>
+
                 {/* Dot 1 */}
-                <div className="absolute w-3 h-3 bg-black rounded-full left-[-7px] top-2" />
-                <div className="flex justify-between items-start">
+                <div className="absolute w-3 h-3 bg-black rounded-full left-0 top-2" />
+                <div className="flex justify-between items-start pl-6">
                   <div>
                     <p className="font-semibold text-base text-gray-900">
                       Reserve this apartment
@@ -817,8 +820,8 @@ export default function BookingReview() {
                 </div>
 
                 {/* Dot 2 */}
-                <div className="absolute w-3 h-3 bg-black rounded-full left-[-7px] top-[120px]" />
-                <div className="flex justify-between items-start">
+                <div className="absolute w-3 h-3 bg-black rounded-full left-0 top-[80px]" />
+                <div className="flex justify-between items-start pl-6">
                   <div>
                     <p className="font-semibold text-base text-gray-900">
                       After move-out
