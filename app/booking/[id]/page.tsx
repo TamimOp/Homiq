@@ -217,7 +217,7 @@ export default function BookingReview() {
 
   return (
     <motion.div
-      className="min-h-screen bg-white p-3 sm:p-20"
+      className="min-h-screen bg-white px-3 sm:px-20 pb-3 sm:pb-20"
       variants={pageVariants}
       initial="initial"
       animate="animate"
