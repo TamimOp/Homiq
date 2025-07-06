@@ -196,12 +196,12 @@ export default function BookingReview() {
   if (!property) {
     return (
       <motion.div
-        className="min-h-screen flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center px-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
             Property Not Found
           </h1>
           <Link
@@ -217,7 +217,7 @@ export default function BookingReview() {
 
   return (
     <motion.div
-      className="min-h-screen bg-white px-3 sm:px-20 pb-3 sm:pb-20"
+      className="min-h-screen bg-white px-3 sm:px-6 lg:px-20 pb-3 sm:pb-6 lg:pb-20"
       variants={pageVariants}
       initial="initial"
       animate="animate"
@@ -288,14 +288,15 @@ export default function BookingReview() {
 
       {/* Header */}
       <motion.div className="bg-white border-b" variants={sectionVariants}>
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <motion.div whileHover={{ x: -5 }} transition={{ duration: 0.2 }}>
             <Link
               href={`/property/${id}`}
               className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
             >
               <ArrowLeft size={20} />
-              Back to Property
+              <span className="hidden sm:inline">Back to Property</span>
+              <span className="sm:hidden">Back</span>
             </Link>
           </motion.div>
         </div>
@@ -306,7 +307,14 @@ export default function BookingReview() {
         className="py-4 mb-6 mx-auto max-w-4xl w-full"
         variants={sectionVariants}
       >
-        <div className="bg-white rounded-2xl shadow-md p-4 sm:px-6 sm:py-4">
+        <div
+          className="bg-white p-4 sm:px-6 sm:py-4"
+          style={{
+            borderRadius: "19px",
+            background: "#FFF",
+            boxShadow: "5px 4px 46.3px 0px rgba(0, 0, 0, 0.15)",
+          }}
+        >
           {/* Mobile/Tablet Search Bar */}
           {isMobile ? (
             <div className="space-y-4">
@@ -487,7 +495,7 @@ export default function BookingReview() {
             <AnimatePresence>
               {showFilterDropdown && (
                 <motion.div
-                  className="absolute top-12 left-0 bg-white rounded-2xl shadow-lg p-6 w-80 z-10 border"
+                  className="absolute top-12 left-0 bg-white rounded-2xl shadow-lg p-6 w-80 max-w-[90vw] z-10 border"
                   variants={filterDropdownVariants}
                   initial="initial"
                   animate="animate"
@@ -521,7 +529,7 @@ export default function BookingReview() {
                           <motion.button
                             key={role}
                             onClick={() => setSelectedRole(role.toLowerCase())}
-                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex-1 ${
+                            className={`px-2 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all flex-1 ${
                               selectedRole === role.toLowerCase()
                                 ? "bg-[#4C68EB08] text-[#5271FF] shadow-sm"
                                 : "bg-transparent text-gray-600 hover:text-gray-800"
@@ -593,7 +601,7 @@ export default function BookingReview() {
                       <h4 className="text-sm font-medium text-black mb-3">
                         Amenities
                       </h4>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {[
                           "Parking",
                           "Air Condition",
@@ -674,27 +682,27 @@ export default function BookingReview() {
 
       {/* Main Content */}
       <motion.div
-        className="flex justify-between items-start gap-6 py-8 bg-white min-h-screen"
+        className="flex flex-col lg:flex-row lg:justify-between items-start gap-6 py-8 bg-white min-h-screen"
         variants={sectionVariants}
       >
         {/* LEFT SECTION */}
         <motion.div
-          className="flex-1 max-w-2xl space-y-8"
+          className="w-full lg:flex-1 lg:max-w-2xl space-y-6 lg:space-y-8"
           variants={sectionVariants}
         >
-          <h2 className="text-[52px] font-semibold text-gray-900">
+          <h2 className="text-3xl sm:text-4xl lg:text-[52px] font-semibold text-gray-900">
             Booking review
           </h2>
 
-          <div className="space-y-5">
+          <div className="space-y-4 lg:space-y-5">
             {/* Charges */}
-            <div className="flex justify-between items-center text-lg">
+            <div className="flex justify-between items-center text-base lg:text-lg">
               <span className="text-[#181A18] font-bold">Rent per month</span>
               <span className="font-bold text-gray-900">
                 £{bookingData.monthlyRent.toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between items-center text-lg">
+            <div className="flex justify-between items-center text-base lg:text-lg">
               <span className="flex items-center gap-1 text-[#181A18]">
                 Utilities per month <Info size={14} className="text-gray-400" />
               </span>
@@ -702,7 +710,7 @@ export default function BookingReview() {
                 £{bookingData.utilities.toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between items-center text-lg pt-2 border-t border-gray-300">
+            <div className="flex justify-between items-center text-base lg:text-lg pt-2 border-t border-gray-300">
               <span className="font-bold text-gray-900">Monthly subtotal</span>
               <span className="font-bold text-gray-900">
                 £{bookingData.monthlySubtotal.toFixed(2)}
@@ -723,7 +731,7 @@ export default function BookingReview() {
                 £{bookingData.totalCharges.toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between items-center text-2xl font-bold pt-4 border-t-2 border-gray-400">
+            <div className="flex justify-between items-center text-xl lg:text-2xl font-bold pt-4 border-t-2 border-gray-400">
               <span className="text-gray-900">Total</span>
               <span className="text-gray-900">£4225.00</span>
             </div>
@@ -732,7 +740,7 @@ export default function BookingReview() {
           {/* Confirm button */}
           <div className="pt-4 flex flex-col items-center">
             <motion.button
-              className="bg-[#4262FF] hover:bg-[#304de0] transition px-8 py-3 rounded-full text-white font-medium text-lg"
+              className="bg-[#4262FF] hover:bg-[#304de0] transition px-8 py-3 rounded-full text-white font-medium text-lg w-full sm:w-auto"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -746,13 +754,17 @@ export default function BookingReview() {
 
         {/* RIGHT SECTION: Summary Card */}
         <motion.div
-          className="bg-[#F2F0F2] rounded-3xl overflow-hidden shadow-lg"
-          style={{ width: "522px", height: "718px" }}
+          className="w-full lg:w-auto bg-[#F2F0F2] rounded-3xl overflow-hidden shadow-lg mx-auto"
+          style={{
+            width: isMobile ? "100%" : "522px",
+            height: isMobile ? "auto" : "718px",
+            maxWidth: "522px",
+          }}
           variants={sectionVariants}
-          whileHover={{ scale: 1.01 }}
+          whileHover={{ scale: isMobile ? 1 : 1.01 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="w-full h-[280px] relative">
+          <div className="w-full h-[200px] sm:h-[240px] lg:h-[280px] relative">
             <Image
               src="/assets/pic1.png"
               alt="Room"
@@ -760,9 +772,9 @@ export default function BookingReview() {
               className="object-cover rounded-t-3xl"
             />
           </div>
-          <div className="p-8 space-y-6 text-sm h-[438px] flex flex-col justify-between">
+          <div className="p-6 lg:p-8 space-y-4 lg:space-y-6 text-sm">
             {/* Dates & Guests */}
-            <div className="space-y-6">
+            <div className="space-y-4 lg:space-y-6">
               <div className="flex justify-between">
                 <div>
                   <p className="text-sm text-gray-500 mb-2 font-medium">
@@ -811,27 +823,32 @@ export default function BookingReview() {
                 {/* Dot 1 */}
                 <div className="absolute w-3 h-3 bg-black rounded-full left-0 top-2" />
                 <div className="flex justify-between items-start pl-6">
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-base text-gray-900">
                       Reserve this apartment
                     </p>
                     <p className="text-sm text-gray-500 mt-1">Due now</p>
                   </div>
-                  <p className="font-bold text-base text-gray-900">£4001.70</p>
+                  <p className="font-bold text-base text-gray-900 ml-4">
+                    £4001.70
+                  </p>
                 </div>
 
                 {/* Dot 2 */}
                 <div className="absolute w-3 h-3 bg-black rounded-full left-0 top-[80px]" />
                 <div className="flex justify-between items-start pl-6">
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-base text-gray-900">
                       After move-out
                     </p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <p className="text-sm text-gray-500">
+                    <div className="flex items-start gap-1 mt-1">
+                      <p className="text-sm text-gray-500 flex-1">
                         Receive your £400.00 deposit back within 30 days
                       </p>
-                      <Info size={14} className="text-gray-400" />
+                      <Info
+                        size={14}
+                        className="text-gray-400 mt-0.5 flex-shrink-0"
+                      />
                     </div>
                   </div>
                 </div>
